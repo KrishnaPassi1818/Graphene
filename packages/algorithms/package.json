@@ -1,0 +1,12 @@
+{
+  "name": "@courier/algorithms",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./demo": "./src/util/demoData.js",
+    "./shortest": "./src/shortest/index.js"
+  },
+  "scripts": { "test": "vitest run" }
+}

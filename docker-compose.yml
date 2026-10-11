@@ -1,0 +1,83 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: courier_optimizer
+      POSTGRES_USER: courier
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-courier_dev_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U courier -d courier_optimizer"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: 4000
+      WEB_ORIGIN: ${WEB_ORIGIN_DOCKER:-${WEB_ORIGIN:-http://localhost:8080}}
+      DEMO_MODE: ${DEMO_MODE:-true}
+      ALLOW_SIGNUP: ${ALLOW_SIGNUP:-false}
+      DEMO_EMAIL: ${DEMO_EMAIL:-dispatcher@routecraft.local}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-RouteDemo!2026}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      TRUST_PROXY_HOPS: 1
+      JWT_SECRET: ${JWT_SECRET:-local-compose-secret-change-before-public-deploy-2026}
+      ACCESS_TOKEN_TTL: ${ACCESS_TOKEN_TTL:-15m}
+      REFRESH_TOKEN_DAYS: ${REFRESH_TOKEN_DAYS:-7}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://courier:${POSTGRES_PASSWORD:-courier_dev_password}@postgres:5432/courier_optimizer}
+      PG_SSL: ${PG_SSL:-false}
+      PG_SSL_REJECT_UNAUTHORIZED: ${PG_SSL_REJECT_UNAUTHORIZED:-true}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:4000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 4s
+      retries: 12
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

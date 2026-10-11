@@ -1,0 +1,22 @@
+{
+  "name": "courier-route-optimizer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB -c cyan,magenta \"npm run dev --workspace apps/api\" \"npm run dev --workspace apps/web\"",
+    "build": "npm run build --workspace apps/web",
+    "start": "npm run start --workspace apps/api",
+    "test": "vitest run --passWithNoTests",
+    "test:watch": "vitest",
+    "lint": "node scripts/check-syntax.mjs",
+    "format": "prettier --write \"**/*.{js,jsx,json,md,css,html,yml,yaml}\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "prettier": "^3.4.2",
+    "supertest": "^7.0.0",
+    "vitest": "^4.1.11"
+  }
+}
