@@ -21,7 +21,7 @@ export function mstTwoApproxTsp(matrix, options = {}) {
     inTree[vertex] = 1;
     if (parent[vertex] !== -1) {
       children[parent[vertex]].push(vertex);
-      recorder.add({ type: "merge", data: { from: parent[vertex], to: vertex, weight: bestEdge[vertex] }, cost: bestEdge[vertex], note: `Add edge ${parent[vertex]}—${vertex} to the minimum spanning tree.` });
+      recorder.add({ type: "merge", data: { from: parent[vertex], to: vertex, weight: bestEdge[vertex] }, cost: bestEdge[vertex], note: `Add edge ${parent[vertex]} -> ${vertex} to the minimum spanning tree.` });
     }
     for (let next = 0; next < n; next += 1) {
       operations += 1;
