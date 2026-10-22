@@ -22,7 +22,8 @@ describe("RouteCraft API", () => {
     expect(planner.body.stops).toHaveLength(14);
     expect(planner.body.fleet.vehicles).toBe(3);
     const algorithms = await request(app).get("/api/algorithms").expect(200);
-    expect(algorithms.body.algorithms.some((algorithm) => algorithm.id === "held-karp")).toBe(true);
+    expect(algorithms.body.algorithms.some((algorithm) => algorithm.id === "dijkstra")).toBe(true);
+    expect(algorithms.body.algorithms.some((algorithm) => algorithm.id === "yen-k-shortest")).toBe(true);
   });
 
   it("validates stop creation at the boundary", async () => {
@@ -70,8 +71,8 @@ describe("RouteCraft API", () => {
       stops: snapshot.stops.slice(0, 4),
       vehicles: 2,
       capacity: 95,
-      algorithm: "combined",
-      algorithms: ["nearest-neighbor", "two-opt"],
+      algorithm: "nearest-neighbor",
+      algorithms: ["nearest-neighbor", "mst-2approx"],
       options: { trace: false, maxIterations: 100 },
     }).expect(200);
     expect(response.body.results).toHaveLength(2);
@@ -81,7 +82,7 @@ describe("RouteCraft API", () => {
   it("runs an optimization asynchronously and returns a validated trace", async () => {
     const plannerResponse = await request(app).get("/api/planner").expect(200);
     const snapshot = plannerResponse.body;
-    const payload = { depot: snapshot.depot, stops: snapshot.stops.slice(0, 5), vehicles: 2, capacity: 95, algorithm: "combined", options: { seed: 9, trace: true, maxIterations: 120 } };
+    const payload = { depot: snapshot.depot, stops: snapshot.stops.slice(0, 5), vehicles: 2, capacity: 95, algorithm: "nearest-neighbor", options: { seed: 9, trace: true } };
     const started = await request(app).post("/api/optimizations").send(payload).expect(202);
     let job;
     for (let attempt = 0; attempt < 30; attempt += 1) {

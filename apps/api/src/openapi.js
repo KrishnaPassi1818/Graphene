@@ -7,7 +7,7 @@ export const openApiDocument = {
     schemas: {
       GeoPoint: { type: "object", required: ["lat", "lng"], properties: { lat: { type: "number", minimum: -90, maximum: 90 }, lng: { type: "number", minimum: -180, maximum: 180 }, label: { type: "string" } } },
       Stop: { allOf: [{ $ref: "#/components/schemas/GeoPoint" }], required: ["id", "label", "demand"], properties: { id: { type: "string" }, label: { type: "string" }, demand: { type: "number", exclusiveMinimum: 0 }, serviceMinutes: { type: "number" }, timeWindow: { type: "object", properties: { start: { type: "number" }, end: { type: "number" } } } } },
-      OptimizationRequest: { type: "object", required: ["depot", "stops", "vehicles", "capacity", "algorithm"], properties: { depot: { $ref: "#/components/schemas/GeoPoint" }, stops: { type: "array", items: { $ref: "#/components/schemas/Stop" } }, vehicles: { type: "integer", minimum: 1 }, capacity: { type: "number", exclusiveMinimum: 0 }, algorithm: { type: "string", enum: ["nearest-neighbor", "mst-2approx", "two-opt", "or-opt", "simulated-annealing", "sweep", "kmeans", "clarke-wright", "combined", "held-karp", "branch-and-bound", "brute-force"] }, options: { type: "object" } } },
+      OptimizationRequest: { type: "object", required: ["depot", "stops", "vehicles", "capacity", "algorithm"], properties: { depot: { $ref: "#/components/schemas/GeoPoint" }, stops: { type: "array", items: { $ref: "#/components/schemas/Stop" } }, vehicles: { type: "integer", minimum: 1 }, capacity: { type: "number", exclusiveMinimum: 0 }, algorithm: { type: "string", enum: ["nearest-neighbor", "mst-2approx", "kmeans", "branch-and-bound", "brute-force", "sweep"] }, options: { type: "object" } } },
     },
   },
   paths: {

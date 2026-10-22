@@ -3,20 +3,15 @@ import { createTraceRecorder } from "../util/opCounter.js";
 import { distanceMatrixFromPoints } from "../util/haversine.js";
 import { bruteForceTsp } from "../tsp/bruteForce.js";
 import { branchBoundTsp } from "../tsp/branchBound.js";
-import { heldKarpTsp } from "../tsp/heldKarp.js";
 import { nearestNeighborTsp } from "../tsp/nearestNeighbor.js";
 import { mstTwoApproxTsp } from "../tsp/mst2approx.js";
-import { twoOptTsp } from "../improve/twoOpt.js";
-import { orOptTsp } from "../improve/orOpt.js";
-import { simulatedAnnealingTsp } from "../improve/simulatedAnnealing.js";
 import { sweepClusters, kmeansClusters } from "./clustering.js";
-import { clarkeWrightClusters } from "./clarkeWright.js";
 import { orderForTimeWindows } from "./timeWindows.js";
 import { validateSolution } from "./validate.js";
 
 const clock = () => globalThis.performance?.now?.() ?? Date.now();
 
-export function solveOptimization({ depot, stops, matrix, demands, capacity, vehicles, algorithm = "combined", options = {} }) {
+export function solveOptimization({ depot, stops, matrix, demands, capacity, vehicles, algorithm = "nearest-neighbor", options = {} }) {
   if (!ROUTE_ALGORITHM_IDS.includes(algorithm)) throw new RangeError(`Unknown route algorithm: ${algorithm}`);
   const points = [depot, ...stops];
   const distanceMatrix = matrix ?? distanceMatrixFromPoints(points);
@@ -28,16 +23,10 @@ export function solveOptimization({ depot, stops, matrix, demands, capacity, veh
 
   let clusters;
   let operations = 0;
-  if (algorithm === "clarke-wright" || algorithm === "combined") {
-    const built = clarkeWrightClusters({ matrix: distanceMatrix, demands: loads, vehicles, capacity, trace: traceProxy });
-    clusters = built.clusters;
-    operations += built.operations;
-  } else if (algorithm === "sweep") {
-    clusters = sweepClusters({ stops, depot, vehicles, capacity, demands: loads, trace: traceProxy });
-  } else if (algorithm === "kmeans") {
+  if (algorithm === "kmeans") {
     clusters = kmeansClusters({ stops, depot, vehicles, capacity, demands: loads, seed: options.seed ?? 42, trace: traceProxy });
   } else {
-    // Exact solvers optimize each capacity-feasible route, not the combinatorial CVRP partition itself.
+    // Sweep clustering partitions the stops by polar angle for sweep, nearest-neighbor, mst, b&b, brute-force
     clusters = sweepClusters({ stops, depot, vehicles, capacity, demands: loads, trace: traceProxy });
   }
 
@@ -99,27 +88,10 @@ function solveCluster(matrix, cluster, algorithm, options) {
   switch (algorithm) {
     case "brute-force": return bruteForceTsp(matrix, traceOptions);
     case "branch-and-bound": return branchBoundTsp(matrix, traceOptions);
-    case "held-karp": return heldKarpTsp(matrix, traceOptions);
-    case "nearest-neighbor": return nearestNeighborTsp(matrix, traceOptions);
     case "mst-2approx": return mstTwoApproxTsp(matrix, traceOptions);
-    case "two-opt": return twoOptTsp(matrix, traceOptions);
-    case "or-opt": return orOptTsp(matrix, traceOptions);
-    case "simulated-annealing": return simulatedAnnealingTsp(matrix, traceOptions);
+    case "nearest-neighbor":
     case "sweep":
-    case "kmeans": return twoOptTsp(matrix, { ...traceOptions, initialRoute: nearestNeighborTsp(matrix, { trace: false }).route });
-    case "clarke-wright": return { route: [0, ...cluster, 0].map((globalIndex) => globalIndex === 0 ? 0 : cluster.indexOf(globalIndex) + 1), cost: 0, operations: 0, iterations: 0, trace: [] };
-    case "combined": {
-      const seed = nearestNeighborTsp(matrix, { trace: false });
-      const improved = twoOptTsp(matrix, { ...traceOptions, initialRoute: seed.route });
-      const polished = simulatedAnnealingTsp(matrix, { ...traceOptions, initialRoute: improved.route, maxIterations: Math.min(options.maxIterations ?? 1500, 900) });
-      return {
-        route: polished.cost < improved.cost ? polished.route : improved.route,
-        cost: Math.min(polished.cost, improved.cost),
-        operations: seed.operations + improved.operations + polished.operations,
-        iterations: improved.iterations + polished.iterations,
-        trace: [...improved.trace, ...polished.trace],
-      };
-    }
+    case "kmeans": return nearestNeighborTsp(matrix, traceOptions);
     default: throw new RangeError(`Algorithm ${algorithm} is not implemented.`);
   }
 }

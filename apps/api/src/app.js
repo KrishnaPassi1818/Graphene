@@ -6,7 +6,7 @@ import rateLimit from "express-rate-limit";
 import pinoHttp from "pino-http";
 import swaggerUi from "swagger-ui-express";
 import { z } from "zod";
-import { ALGORITHM_REGISTRY, DEMO_INSTANCE, generateInstance, solveOptimization } from "@courier/algorithms";
+import { ALGORITHM_REGISTRY, DEMO_INSTANCE, generateInstance, solveOptimization, evaluateShortestPathScenario } from "@courier/algorithms";
 import { BenchmarkRequestSchema, CompareRequestSchema, OptimizationRequestSchema, StopSchema } from "@courier/contracts";
 import { authenticate, authorize } from "./middleware/auth.js";
 import { authRouter } from "./modules/auth.js";
@@ -149,6 +149,23 @@ export function createApp() {
     return res.json({ results });
   }));
 
+  app.post("/api/scenario/compare-shortest", authenticate, asyncHandler(async (req, res) => {
+    const { nodes, edges, source = 0, target = null, directed = false } = req.body || {};
+    let scenarioNodes = nodes;
+    if (!Array.isArray(scenarioNodes) || scenarioNodes.length < 2) {
+      const planner = await getPlanner(req.user.id);
+      scenarioNodes = [planner.depot, ...planner.stops];
+    }
+    const report = evaluateShortestPathScenario({
+      nodes: scenarioNodes,
+      edges,
+      source: Number(source) || 0,
+      target: target !== null && target !== undefined ? Number(target) : scenarioNodes.length - 1,
+      directed: Boolean(directed),
+    });
+    return res.json(report);
+  }));
+
   app.get("/api/runs", authenticate, asyncHandler(async (req, res) => {
     const runs = await listRuns(req.user.id, Math.min(100, Number(req.query.limit) || 50));
     res.json({ runs: runs.map((run) => ({ id: run.id, algorithm: run.algorithm, totalDistance: run.totalDistance ?? run.total_distance, runtimeMs: run.runtimeMs ?? run.runtime_ms, opCount: run.opCount ?? run.op_count, createdAt: run.createdAt ?? run.created_at })) });
@@ -164,7 +181,7 @@ export function createApp() {
   }));
   app.post("/api/benchmarks/run", authenticate, demoOrAdmin, asyncHandler(async (req, res) => {
     const input = BenchmarkRequestSchema.parse(req.body ?? {});
-    const algorithms = input.algorithms ?? ["nearest-neighbor", "two-opt", "combined", "held-karp"];
+    const algorithms = input.algorithms ?? ["nearest-neighbor", "mst-2approx", "branch-and-bound", "brute-force"];
     const sizes = input.sizes ?? [6, 10, 14, 20, 32];
     const batchId = `bench-${Date.now().toString(36)}`;
     const results = [];
@@ -177,13 +194,13 @@ export function createApp() {
         for (const algorithm of algorithms) {
           try {
             const result = await runSolverInWorker({ ...payload, algorithm }, Number(process.env.BENCHMARK_TIMEOUT_MS || 15000));
-            if (["held-karp", "brute-force", "branch-and-bound"].includes(algorithm)) optimalCost = optimalCost == null ? result.totalCost : Math.min(optimalCost, result.totalCost);
+            if (["brute-force", "branch-and-bound"].includes(algorithm)) optimalCost = optimalCost == null ? result.totalCost : Math.min(optimalCost, result.totalCost);
             results.push({ batchId, algorithm, nStops, seed, runtimeMs: result.stats.runtimeMs, cost: result.totalCost, optimalCost: null, gapPct: null, operations: result.stats.operations });
           } catch (error) {
             results.push({ batchId, algorithm, nStops, seed, runtimeMs: null, cost: null, error: error.message, operations: 0 });
           }
         }
-        const exact = results.filter((row) => row.nStops === nStops && row.seed === seed && row.cost != null && ["held-karp", "brute-force", "branch-and-bound"].includes(row.algorithm));
+        const exact = results.filter((row) => row.nStops === nStops && row.seed === seed && row.cost != null && ["brute-force", "branch-and-bound"].includes(row.algorithm));
         if (exact.length) optimalCost = Math.min(...exact.map((row) => row.cost));
         for (const row of results.filter((item) => item.nStops === nStops && item.seed === seed && item.cost != null)) {
           row.optimalCost = optimalCost;

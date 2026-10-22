@@ -6,7 +6,7 @@ const demo = structuredClone(DEMO_INSTANCE);
 export const usePlannerStore = create((set, get) => ({
   page: "planner",
   planner: { depot: demo.depot, stops: demo.stops, fleet: demo.fleet, demoMode: true, algorithms: [] },
-  algorithm: "combined",
+  algorithm: "nearest-neighbor",
   result: null,
   comparison: null,
   selectedRoute: null,

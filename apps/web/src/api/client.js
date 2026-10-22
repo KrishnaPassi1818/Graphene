@@ -47,6 +47,7 @@ export const api = {
   async optimize(payload) { const { data } = await apiClient.post("/optimizations", payload); return data; },
   async job(id) { const { data } = await apiClient.get(`/optimizations/${id}`); return data; },
   async compare(payload) { const { data } = await apiClient.post("/compare", payload); return data.results; },
+  async compareShortestPaths(payload) { const { data } = await apiClient.post("/scenario/compare-shortest", payload); return data; },
   async runs() { const { data } = await apiClient.get("/runs"); return data.runs; },
   async benchmarks() { const { data } = await apiClient.get("/benchmarks"); return data.results; },
   async runBenchmarks(payload) { const { data } = await apiClient.post("/benchmarks/run", payload, { timeout: 120000 }); return data; },

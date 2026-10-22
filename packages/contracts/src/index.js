@@ -3,16 +3,10 @@ import { z } from "zod";
 export const ALGORITHM_IDS = [
   "nearest-neighbor",
   "mst-2approx",
-  "two-opt",
-  "or-opt",
-  "simulated-annealing",
-  "sweep",
   "kmeans",
-  "clarke-wright",
-  "combined",
-  "held-karp",
   "branch-and-bound",
   "brute-force",
+  "sweep",
 ];
 
 export const GeoPointSchema = z.object({

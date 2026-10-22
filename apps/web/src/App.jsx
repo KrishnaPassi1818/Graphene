@@ -1,20 +1,46 @@
-import { lazy, Suspense, useEffect, useMemo } from "react";
+import { lazy, Suspense, useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { Activity, ArrowUpRight, BarChart3, ChevronDown, Clock3, Command, FileClock, LifeBuoy, MapPinned, Settings2, ShieldCheck } from "lucide-react";
+import { 
+  Activity, 
+  BarChart3, 
+  ChevronLeft,
+  ChevronRight,
+  Clock3, 
+  Command, 
+  FileClock, 
+  Navigation2,
+  Route as RouteIcon,
+  Settings2, 
+  PanelLeftClose,
+  PanelLeftOpen,
+} from "lucide-react";
 import { api } from "./api/client.js";
 import { usePlannerStore } from "./store/usePlannerStore.js";
+
 const PlannerView = lazy(() => import("./views/PlannerView.jsx"));
 const AlgorithmsView = lazy(() => import("./views/AlgorithmsView.jsx"));
 const BenchmarksView = lazy(() => import("./views/BenchmarksView.jsx"));
 const RunsView = lazy(() => import("./views/RunsView.jsx"));
 const AccessView = lazy(() => import("./views/AccessView.jsx"));
-const PrivacyPolicyView = lazy(() => import("./views/PrivacyPolicyView.jsx"));
-const TermsConditionsView = lazy(() => import("./views/TermsConditionsView.jsx"));
+const ShortestPathLabView = lazy(() => import("./views/ShortestPathLabView.jsx"));
 
 const navigation = [
-  { label: "Dispatch", items: [{ path: "/", label: "Route planner", icon: MapPinned, badge: "LIVE" }, { path: "/runs", label: "Run history", icon: FileClock }] },
-  { label: "Learn & analyze", items: [{ path: "/algorithms", label: "Algorithms", icon: Activity }, { path: "/benchmarks", label: "Benchmarks", icon: BarChart3 }] },
+  { 
+    label: "Routing Operations", 
+    items: [
+      { path: "/", label: "Route Planner", icon: RouteIcon },
+      { path: "/shortest-paths", label: "Shortest Path & MST Suite", icon: Navigation2 },
+      { path: "/runs", label: "Fleet History", icon: FileClock }
+    ] 
+  },
+  { 
+    label: "Intelligence Lab", 
+    items: [
+      { path: "/algorithms", label: "Algorithm Lab", icon: Activity },
+      { path: "/benchmarks", label: "Benchmarks", icon: BarChart3 }
+    ] 
+  },
 ];
 
 export default function App() {
@@ -26,7 +52,11 @@ export default function App() {
   const setPlanner = usePlannerStore((state) => state.setPlanner);
   const setFallbackMode = usePlannerStore((state) => state.setFallbackMode);
   const planner = usePlannerStore((state) => state.planner);
-  const fallbackMode = usePlannerStore((state) => state.fallbackMode);
+
+  const [collapsed, setCollapsed] = useState(false);
+  const sidebarRef = useRef(null);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
   const plannerQuery = useQuery({ queryKey: ["planner"], queryFn: api.planner, retry: 1, refetchOnWindowFocus: false });
   const healthQuery = useQuery({ queryKey: ["health"], queryFn: api.health, retry: false, refetchInterval: 45_000 });
@@ -35,71 +65,202 @@ export default function App() {
     if (plannerQuery.data) setPlanner(plannerQuery.data);
     else if (plannerQuery.isError) setFallbackMode();
   }, [plannerQuery.data, plannerQuery.isError, setPlanner, setFallbackMode]);
+  
   useEffect(() => { setPage(page); }, [page, setPage]);
 
-  const routeStatus = healthQuery.data?.status === "ready" ? "API CONNECTED" : fallbackMode ? "LOCAL DEMO" : "CONNECTING";
-  const dateLabel = useMemo(() => new Intl.DateTimeFormat("en-IN", { weekday: "long", day: "2-digit", month: "short", year: "numeric" }).format(new Date()).toUpperCase(), []);
+  // Touch and wheel swipe gesture listeners to collapse/expand sidebar
+  useEffect(() => {
+    const handleTouchStart = (e) => {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e) => {
+      if (touchStartX.current === null || touchStartY.current === null) return;
+      const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+      const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+
+      // Only respond if horizontal swipe is dominant (> 40px and more than vertical)
+      if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+        if (deltaX < 0) {
+          // Swipe left -> collapse
+          setCollapsed(true);
+        } else if (deltaX > 0) {
+          // Swipe right -> expand
+          setCollapsed(false);
+        }
+      }
+      touchStartX.current = null;
+      touchStartY.current = null;
+    };
+
+    // Horizontal wheel / trackpad scroll on sidebar or edge to collapse/expand
+    const sidebarEl = sidebarRef.current;
+    const handleWheel = (e) => {
+      if (Math.abs(e.deltaX) > 30) {
+        if (e.deltaX > 0) setCollapsed(true); // scrolling right -> collapse sidebar
+        else if (e.deltaX < 0) setCollapsed(false); // scrolling left -> expand sidebar
+      }
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    if (sidebarEl) sidebarEl.addEventListener("wheel", handleWheel, { passive: true });
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+      if (sidebarEl) sidebarEl.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
+  const dateLabel = new Intl.DateTimeFormat("en-US", { 
+    weekday: "short", 
+    month: "short", 
+    day: "numeric" 
+  }).format(new Date());
+
   const title = ({
-    planner: "TMS Route Planner",
-    runs: "Run history",
-    algorithms: "Algorithm lab",
-    benchmarks: "Benchmark studio",
-    settings: "API & custom domain",
-    login: "Access & security",
-    privacy: "Privacy policy",
-    terms: "Terms and conditions",
-  })[page] ?? "TMS Route Planner";
+    planner: "Route Planner",
+    "shortest-paths": "Shortest Path & MST Suite",
+    runs: "Fleet History",
+    algorithms: "Algorithm Lab",
+    benchmarks: "Benchmarks",
+    settings: "Settings",
+    login: "Authentication",
+  })[page] ?? "Route Planner";
 
   function goTo(nextPath) { navigate(nextPath); }
 
   return (
-    <div className="app-shell">
-      <aside className="sidebar">
-        <div className="brand-lockup"><div className="brand-mark"><span /><span /><span /><span /></div><div className="brand-name">TMS DISPATCH<span>OPERATIONS DESK</span></div><button className="workspace-switch" aria-label="Workspace menu"><ChevronDown size={13} /></button></div>
-        <button className="workspace-card"><span className="workspace-badge">PN</span><span className="workspace-copy"><b>Punjab North Hub</b><small>Fleet depot & routing</small></span><ChevronDown size={14} /></button>
+    <div className={`curri-shell ${collapsed ? "sidebar-collapsed" : ""}`}>
+      {/* Collapsible Left Sidebar */}
+      <aside className={`curri-sidebar ${collapsed ? "is-collapsed" : ""}`} ref={sidebarRef}>
+        {/* Brand Lockup */}
+        <div className="curri-brand">
+          <div className="curri-logo-mark" onClick={() => setCollapsed(!collapsed)} title="Toggle sidebar">
+            <Navigation2 className="curri-logo-icon" size={17} />
+          </div>
+          {!collapsed && (
+            <div className="curri-brand-text">
+              <span className="curri-title">ROUTECRAFT</span>
+              <span className="curri-subtitle">LOGISTICS</span>
+            </div>
+          )}
+          <button 
+            type="button" 
+            className="curri-collapse-toggle" 
+            onClick={() => setCollapsed(!collapsed)}
+            title={collapsed ? "Expand sidebar (or swipe right)" : "Collapse sidebar (or swipe left)"}
+          >
+            {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          </button>
+        </div>
 
-        <nav className="side-navigation" aria-label="Main navigation">
-          {navigation.map((group) => <div className="nav-group" key={group.label}><div className="nav-group-label">{group.label}</div>{group.items.map(({ path: target, label, icon: Icon, badge }) => <button key={target} className={`nav-item ${path === target ? "nav-item-active" : ""}`} onClick={() => goTo(target)}><Icon size={17} strokeWidth={path === target ? 2.3 : 1.8} /><span>{label}</span>{badge && <i>{badge}</i>}</button>)}</div>)}
-          <div className="nav-group"><div className="nav-group-label">Workspace</div><button className={`nav-item ${page === "settings" || page === "login" ? "nav-item-active" : ""}`} onClick={() => goTo("/settings")}><Settings2 size={17} /><span>API & domain</span></button></div>
-          <div className="nav-group"><div className="nav-group-label">Legal</div><button className={`nav-item ${page === "privacy" ? "nav-item-active" : ""}`} onClick={() => goTo("/privacy")}><ShieldCheck size={17} /><span>Privacy policy</span></button><button className={`nav-item ${page === "terms" ? "nav-item-active" : ""}`} onClick={() => goTo("/terms")}><FileClock size={17} /><span>Terms & conditions</span></button></div>
+        {/* Primary Navigation */}
+        <nav className="curri-nav" aria-label="Main Navigation">
+          {navigation.map((group) => (
+            <div className="curri-nav-group" key={group.label}>
+              {!collapsed && <div className="curri-nav-header">{group.label}</div>}
+              {group.items.map(({ path: target, label, icon: Icon }) => (
+                <button
+                  key={target}
+                  className={`curri-nav-link ${path === target ? "curri-nav-active" : ""}`}
+                  onClick={() => goTo(target)}
+                  title={collapsed ? label : undefined}
+                >
+                  <Icon size={18} strokeWidth={path === target ? 2.3 : 1.8} />
+                  {!collapsed && <span>{label}</span>}
+                </button>
+              ))}
+            </div>
+          ))}
+
+          <div className="curri-nav-group">
+            {!collapsed && <div className="curri-nav-header">Settings</div>}
+            <button
+              className={`curri-nav-link ${page === "settings" || page === "login" ? "curri-nav-active" : ""}`}
+              onClick={() => goTo("/settings")}
+              title={collapsed ? "API & Settings" : undefined}
+            >
+              <Settings2 size={18} />
+              {!collapsed && <span>Settings</span>}
+            </button>
+          </div>
         </nav>
 
-        <div className="sidebar-bottom">
-          <div className="engine-card"><div className="engine-status"><span className={routeStatus === "API CONNECTED" ? "status-green" : "status-amber"} /><span>{routeStatus}</span><button title="Refresh health" onClick={() => healthQuery.refetch()}><ArrowUpRight size={13} /></button></div><b>Route engine</b><small>{healthQuery.data?.database?.status === "ready" ? "Postgres + cache available" : "Haversine · zero-key mode"}</small></div>
-          <button className="help-link" onClick={() => window.open("/api/docs", "_blank", "noopener,noreferrer")}><LifeBuoy size={15} />API documentation<ArrowUpRight size={13} /></button>
-          <div className="sidebar-user"><span className="user-avatar">SD</span><span className="sidebar-user-copy"><b>Operations dispatcher</b><small>{planner.demoMode === false ? "Authenticated workspace" : "Demo workspace"}</small></span><button title="Open access settings" onClick={() => goTo("/settings")}><ChevronDown size={14} /></button></div>
+        {/* Simple Footer */}
+        <div className="curri-sidebar-footer">
+          <div className="curri-user-bar" onClick={() => goTo("/settings")}>
+            <div className="curri-user-avatar">RC</div>
+            {!collapsed && (
+              <div className="curri-user-info">
+                <b>Dispatcher</b>
+                <small>{planner.demoMode === false ? "Dedicated Fleet" : "Live Simulation"}</small>
+              </div>
+            )}
+          </div>
         </div>
       </aside>
 
-      <main className="main-shell">
-        <header className="topbar">
-          <div className="topbar-left"><div className="mobile-brand"><div className="brand-mark"><span /><span /><span /><span /></div><b>TMS ROUTE PLANNER</b></div><div className="breadcrumb"><span>TMS OPERATIONS</span><i>/</i><b>{title.toUpperCase()}</b></div></div>
-          <div className="topbar-right"><div className="date-chip"><Clock3 size={14} />{dateLabel}</div><div className={`connection-pill ${routeStatus === "API CONNECTED" ? "connection-good" : ""}`}><span />{routeStatus}</div><button className="command-button" title="Search stops and pages"><Command size={14} /><span>Search</span><kbd>⌘ K</kbd></button><button className="topbar-avatar" onClick={() => goTo("/settings")} title="Access and user settings">SD</button></div>
+      {/* Main Content Area */}
+      <main className="curri-main">
+        {/* Top Header */}
+        <header className="curri-topbar">
+          <div className="topbar-left-wrap">
+            <button 
+              type="button" 
+              className="curri-mobile-toggle"
+              onClick={() => setCollapsed(!collapsed)}
+              title="Toggle sidebar"
+            >
+              {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+            </button>
+            <div className="curri-breadcrumbs">
+              <span className="crumb-brand">DISPATCH</span>
+              <span className="crumb-slash">/</span>
+              <span className="crumb-title">{title}</span>
+            </div>
+          </div>
+
+          <div className="topbar-right-wrap">
+            <div className="curri-date-pill">
+              <Clock3 size={14} />
+              <span>{dateLabel}</span>
+            </div>
+
+            <button className="curri-header-avatar" onClick={() => goTo("/settings")} title="Settings">
+              RC
+            </button>
+          </div>
         </header>
 
-        <div className="content-shell">
-          <Suspense fallback={<div className="view-loading"><span className="spin-dot" />Loading workspace view…</div>}>
+        {/* View Canvas */}
+        <div className="curri-content">
+          <Suspense fallback={
+            <div className="curri-loading-state">
+              <div className="curri-spin-loader" />
+              <span>Loading View…</span>
+            </div>
+          }>
             {page === "planner" && <PlannerView />}
+            {page === "shortest-paths" && <ShortestPathLabView />}
             {page === "algorithms" && <AlgorithmsView onNavigate={goTo} />}
             {page === "benchmarks" && <BenchmarksView />}
             {page === "runs" && <RunsView />}
             {(page === "settings" || page === "login") && <AccessView />}
-            {page === "privacy" && <PrivacyPolicyView />}
-            {page === "terms" && <TermsConditionsView />}
           </Suspense>
         </div>
-        <footer className="app-footer">
-          <div className="footer-left">
-            <span>TRANSPORTATION MANAGEMENT SYSTEM</span>
-            <i>·</i>
-            <span>DISPATCH & ROUTE OPTIMIZATION</span>
+
+        {/* Clean Footer without Privacy Policy or Terms */}
+        <footer className="curri-footer">
+          <div className="curri-footer-left">
+            <span className="footer-bold">ROUTECRAFT</span>
+            <span className="footer-dot">•</span>
+            <span>Intelligent Vehicle Route Optimization</span>
           </div>
-          <div className="footer-right">
-            <button type="button" onClick={() => goTo("/privacy")} className="footer-link">Privacy policy</button>
-            <i>·</i>
-            <button type="button" onClick={() => goTo("/terms")} className="footer-link">Terms and conditions</button>
-            <i>·</i>
-            <span><ShieldCheck size={12} /> Verified operational telemetry</span>
+          <div className="curri-footer-right">
+            <span>Real-time DAA Solver</span>
           </div>
         </footer>
       </main>

@@ -7,6 +7,9 @@ export function floydWarshall(inputMatrix, { trace = false } = {}) {
   const steps = [];
   let operations = 0;
   for (let k = 0; k < n; k += 1) {
+    if (trace && steps.length < 5000) {
+      steps.push({ type: "pivot", data: { k }, cost: 0, note: `Considering intermediate vertex ${k} for all pairs (i, j).` });
+    }
     for (let i = 0; i < n; i += 1) {
       for (let j = 0; j < n; j += 1) {
         operations += 1;
@@ -14,7 +17,7 @@ export function floydWarshall(inputMatrix, { trace = false } = {}) {
         if (through < distances[i][j]) {
           distances[i][j] = through;
           next[i][j] = next[i][k];
-          if (trace && steps.length < 5000) steps.push({ type: "dp-cell", data: { i, j, k, value: through }, cost: through, note: `Using ${k} as an intermediate improves ${i} → ${j}.` });
+          if (trace && steps.length < 5000) steps.push({ type: "dp-cell", data: { i, j, k, value: through }, cost: through, note: `Using ${k} as an intermediate improves ${i} → ${j} to ${through.toFixed ? through.toFixed(2) : through}.` });
         }
       }
     }

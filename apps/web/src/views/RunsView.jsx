@@ -5,7 +5,14 @@ import toast from "react-hot-toast";
 import { api } from "../api/client.js";
 import { usePlannerStore } from "../store/usePlannerStore.js";
 
-const names = { "nearest-neighbor": "Nearest neighbor", "mst-2approx": "MST 2-approx", "two-opt": "2-opt local search", "or-opt": "Or-opt relocation", "simulated-annealing": "Simulated annealing", sweep: "Sweep clustering", kmeans: "Capacity K-means", "clarke-wright": "Clarke–Wright savings", combined: "Savings + 2-opt + SA", "held-karp": "Held–Karp DP", "branch-and-bound": "Branch & bound", "brute-force": "Brute force" };
+const names = {
+  "nearest-neighbor": "Nearest neighbour",
+  "mst-2approx": "MST (2-Approximation)",
+  sweep: "Sweep clustering",
+  kmeans: "Capacity constrained K-means",
+  "branch-and-bound": "Branch and bound",
+  "brute-force": "Brute force"
+};
 const palette = ["#2b72e5", "#0eaa87", "#e39a22", "#8c62d8"];
 
 export default function RunsView() {
