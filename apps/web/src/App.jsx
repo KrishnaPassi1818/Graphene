@@ -143,8 +143,8 @@ export default function App() {
           </div>
           {!collapsed && (
             <div className="curri-brand-text">
-              <span className="curri-title">ROUTECRAFT</span>
-              <span className="curri-subtitle">LOGISTICS</span>
+              <span className="curri-title">Routecraft</span>
+              <span className="curri-subtitle">Logistics platform</span>
             </div>
           )}
           <button
