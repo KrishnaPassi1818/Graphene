@@ -1,0 +1,1656 @@
+{
+ "url": "http://localhost:5173/runs",
+ "at": "2026-10-25T08:11:24.323Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.69
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 900,
+     "screens": 1,
+     "words": 259,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 33,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Fleet dispatch history",
+     "words": 3,
+     "chars": 22,
+     "lines": 1,
+     "size": 22,
+     "vw": 1.5,
+     "font": "-apple-system",
+     "weight": 700,
+     "tracking": -0.01,
+     "leading": 1.2,
+     "top": 84,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Fleet dispatch history",
+     "words": 3,
+     "lines": 1,
+     "size": 22,
+     "font": "-apple-system"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "-apple-system",
+       "share": 0.95,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.05,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      22,
+      26
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "-apple-system",
+      "size": 13,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 6.2
+     },
+     "measureChars": 92,
+     "max": {
+      "size": 26,
+      "vw": 1.8,
+      "font": "-apple-system",
+      "text": "6"
+     },
+     "monoShare": 0.05,
+     "monoProseShare": 0.05,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [
+      "DSP-2026-8420",
+      "DSP-2026-8423",
+      "DSP-2026-8426",
+      "DSP-2026-8429",
+      "DSP-2026-8432",
+      "DSP-2026-8435"
+     ],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.1,
+     "centerShare": 0.07,
+     "smallText": 41
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#fcf0da",
+     "bodyBgHsl": {
+      "h": 39,
+      "s": 0.85,
+      "l": 0.92
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fcf0da",
+       "top": 0,
+       "hsl": {
+        "h": 39,
+        "s": 0.85,
+        "l": 0.92
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#605853",
+       "share": 0.43
+      },
+      {
+       "color": "#4c4541",
+       "share": 0.35
+      },
+      {
+       "color": "#fcf0da",
+       "share": 0.05
+      },
+      {
+       "color": "#fdf0da",
+       "share": 0.05
+      },
+      {
+       "color": "#047857",
+       "share": 0.04
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#4c4541"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 6,
+     "inHero": 6,
+     "radius": 8,
+     "height": 36,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Fleet History",
+      "Export CSV",
+      "JSON",
+      "New Route Plan",
+      "Dispatches log 6"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 4,
+     "hairlineSamples": [
+      "aside.curri-sidebar 250px",
+      "header.curri-topbar 1190px",
+      "div.fleet-view-nav 1134px",
+      "footer.curri-footer 1190px"
+     ],
+     "outlinedBoxes": 5,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 5,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 151
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 900,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 900,
+    "margins": {
+     "left": 14,
+     "right": 21
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Fleet dispatch history",
+      "size": 22,
+      "top": 84,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 278,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 13,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.13,
+    "voidBox": {
+     "x": 0,
+     "y": 720,
+     "w": 1440,
+     "h": 120
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#fcf0da",
+    "sidebar": {
+     "w": 250,
+     "tag": "aside",
+     "links": 7,
+     "share": 0.17
+    },
+    "topbar": {
+     "h": 60
+    },
+    "canvas": {
+     "left": 28,
+     "right": 21
+    },
+    "hero": {
+     "text": "Fleet dispatch history",
+     "words": 3,
+     "chars": 22,
+     "lines": 1,
+     "size": 22,
+     "vw": 1.5,
+     "font": "-apple-system",
+     "weight": 700,
+     "tracking": -0.01,
+     "leading": 1.2,
+     "top": 84,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 6,
+     "firstScreen": 6,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 6,
+     "radii": [
+      [
+       8,
+       5
+      ],
+      [
+       0,
+       1
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 2,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 40,
+       "size": 36,
+       "radius": "8px"
+      },
+      {
+       "hue": 29,
+       "size": 26,
+       "radius": "6px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 6,
+     "leftAligned": 0,
+     "figures": 6,
+     "tabularShare": 1,
+     "kpiMax": 13.5
+    },
+    "rows": {
+     "count": 6,
+     "median": 49
+    },
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.5,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      22,
+      26
+     ]
+    },
+    "title": {
+     "text": "Fleet dispatch history",
+     "size": 22,
+     "top": 84
+    },
+    "colourShare": 0.008
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 1,
+   "filled": [
+    0.73
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1024,
+     "screens": 1,
+     "words": 235,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 33,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Fleet dispatch history",
+     "words": 3,
+     "chars": 22,
+     "lines": 1,
+     "size": 22,
+     "vw": 2.9,
+     "font": "-apple-system",
+     "weight": 700,
+     "tracking": -0.01,
+     "leading": 1.2,
+     "top": 76,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Fleet dispatch history",
+     "words": 3,
+     "lines": 1,
+     "size": 22,
+     "font": "-apple-system"
+    },
+    "headings": [
+     {
+      "text": "6",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "-apple-system",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 230,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "190.7 km",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "-apple-system",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.39,
+      "top": 230,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "17 tours",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "-apple-system",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.39,
+      "top": 340,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "0.2 ms",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "-apple-system",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.39,
+      "top": 340,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 4,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "-apple-system",
+       "share": 0.94,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.06,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      22,
+      26
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "-apple-system",
+      "size": 13,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 6.2
+     },
+     "measureChars": 92,
+     "max": {
+      "size": 26,
+      "vw": 3.4,
+      "font": "-apple-system",
+      "text": "6"
+     },
+     "monoShare": 0.06,
+     "monoProseShare": 0.06,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [
+      "DSP-2026-8420",
+      "DSP-2026-8423",
+      "DSP-2026-8426",
+      "DSP-2026-8429",
+      "DSP-2026-8432",
+      "DSP-2026-8435"
+     ],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.08,
+     "centerShare": 0.08,
+     "smallText": 33
+    },
+    "eyebrows": [
+     {
+      "text": "Archived dispatches",
+      "above": "6",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12.5,
+      "top": 210
+     },
+     {
+      "text": "Dispatched distance",
+      "above": "190.7 km",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12.5,
+      "top": 210
+     },
+     {
+      "text": "Fleet vehicles",
+      "above": "17 tours",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12.5,
+      "top": 320
+     },
+     {
+      "text": "Solver latency",
+      "above": "0.2 ms",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12.5,
+      "top": 320
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#fcf0da",
+     "bodyBgHsl": {
+      "h": 39,
+      "s": 0.85,
+      "l": 0.92
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fcf0da",
+       "top": 0,
+       "hsl": {
+        "h": 39,
+        "s": 0.85,
+        "l": 0.92
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#605853",
+       "share": 0.49
+      },
+      {
+       "color": "#4c4541",
+       "share": 0.39
+      },
+      {
+       "color": "#047857",
+       "share": 0.05
+      },
+      {
+       "color": "#854d0e",
+       "share": 0.03
+      },
+      {
+       "color": "#166534",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#4c4541"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 5,
+     "radius": 8,
+     "height": 36,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Export CSV",
+      "JSON",
+      "New Route Plan",
+      "Dispatches log 6",
+      "Solver analytics & trends"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 4,
+     "hairlineSamples": [
+      "aside.curri-sidebar 60px",
+      "header.curri-topbar 708px",
+      "div.fleet-view-nav 676px",
+      "footer.curri-footer 708px"
+     ],
+     "outlinedBoxes": 5,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 5,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": false,
+       "rounded": true,
+       "top": 195
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 1024,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1024,
+    "margins": {
+     "left": 6,
+     "right": 29
+    },
+    "sections": [
+     {
+      "sel": "section.fleet-kpi-grid",
+      "tag": "section",
+      "top": 195,
+      "height": 209,
+      "words": 29,
+      "media": 0,
+      "middle": 196,
+      "heading": {
+       "text": "190.7",
+       "size": 26,
+       "tag": "div"
+      },
+      "left": 93,
+      "right": 218,
+      "textLeft": 93,
+      "textRight": 218,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div.fleet-history-stack",
+      "tag": "div",
+      "top": 476,
+      "height": 403,
+      "words": 66,
+      "media": 0,
+      "middle": 450,
+      "heading": null,
+      "left": 127,
+      "right": 0,
+      "textLeft": 127,
+      "textRight": 34,
+      "fullBleed": false,
+      "footer": true,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Fleet dispatch history",
+      "size": 22,
+      "top": 76,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 76,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 13,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#fcf0da",
+    "sidebar": {
+     "w": 60,
+     "tag": "aside",
+     "links": 7,
+     "share": 0.08
+    },
+    "topbar": {
+     "h": 60
+    },
+    "canvas": {
+     "left": 16,
+     "right": -449
+    },
+    "hero": {
+     "text": "Fleet dispatch history",
+     "words": 3,
+     "chars": 22,
+     "lines": 1,
+     "size": 22,
+     "vw": 2.9,
+     "font": "-apple-system",
+     "weight": 700,
+     "tracking": -0.01,
+     "leading": 1.2,
+     "top": 76,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 5,
+     "firstScreen": 5,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 5,
+     "radii": [
+      [
+       8,
+       5
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 1,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 40,
+       "size": 36,
+       "radius": "8px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 6,
+     "leftAligned": 0,
+     "figures": 6,
+     "tabularShare": 1,
+     "kpiMax": 13.5
+    },
+    "rows": {
+     "count": 6,
+     "median": 49
+    },
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.46,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      22,
+      26
+     ]
+    },
+    "title": {
+     "text": "Fleet dispatch history",
+     "size": 22,
+     "top": 76
+    },
+    "colourShare": 0.005
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.7,
+    0.84
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 1170,
+     "screens": 1.4,
+     "words": 235,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 33,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Fleet dispatch history",
+     "words": 3,
+     "chars": 22,
+     "lines": 1,
+     "size": 22,
+     "vw": 5.6,
+     "font": "-apple-system",
+     "weight": 700,
+     "tracking": -0.01,
+     "leading": 1.2,
+     "top": 76,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Fleet dispatch history",
+     "words": 3,
+     "lines": 1,
+     "size": 22,
+     "font": "-apple-system"
+    },
+    "headings": [
+     {
+      "text": "Fleet dispatch history",
+      "words": 3,
+      "chars": 22,
+      "lines": 1,
+      "size": 22,
+      "vw": 5.6,
+      "font": "-apple-system",
+      "weight": 700,
+      "tracking": -0.01,
+      "leading": 1.2,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.76,
+      "top": 76,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "190.7 km",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "-apple-system",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.28,
+      "top": 326,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "6",
+      "words": 1,
+      "chars": 1,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "-apple-system",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 333,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "17 tours",
+      "words": 2,
+      "chars": 8,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "-apple-system",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.28,
+      "top": 450,
+      "tag": "div",
+      "kind": "heading"
+     },
+     {
+      "text": "0.6 ms",
+      "words": 2,
+      "chars": 6,
+      "lines": 1,
+      "size": 26,
+      "vw": 6.7,
+      "font": "-apple-system",
+      "weight": 700,
+      "tracking": 0,
+      "leading": 1.1,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "right",
+      "widthRatio": 0.28,
+      "top": 457,
+      "tag": "div",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 5,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "-apple-system",
+       "share": 0.94,
+       "mono": false
+      },
+      {
+       "family": "ui-monospace",
+       "share": 0.06,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      22,
+      26
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "-apple-system",
+      "size": 13,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 6.2
+     },
+     "measureChars": 46,
+     "max": {
+      "size": 26,
+      "vw": 6.7,
+      "font": "-apple-system",
+      "text": "6"
+     },
+     "monoShare": 0.06,
+     "monoProseShare": 0.06,
+     "monoFamilies": [
+      "ui-monospace"
+     ],
+     "monoSamples": [
+      "DSP-2026-8420",
+      "DSP-2026-8423",
+      "DSP-2026-8426",
+      "DSP-2026-8429",
+      "DSP-2026-8432",
+      "DSP-2026-8435"
+     ],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.08,
+     "centerShare": 0.08,
+     "smallText": 33
+    },
+    "eyebrows": [
+     {
+      "text": "Dispatched distance",
+      "above": "190.7 km",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12.5,
+      "top": 292
+     },
+     {
+      "text": "Archived dispatches",
+      "above": "6",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12.5,
+      "top": 292
+     },
+     {
+      "text": "Fleet vehicles",
+      "above": "17 tours",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12.5,
+      "top": 430
+     },
+     {
+      "text": "Solver latency",
+      "above": "0.6 ms",
+      "upper": false,
+      "tracked": false,
+      "mono": false,
+      "pill": false,
+      "size": 12.5,
+      "top": 430
+     }
+    ],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#fcf0da",
+     "bodyBgHsl": {
+      "h": 39,
+      "s": 0.85,
+      "l": 0.92
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fcf0da",
+       "top": 0,
+       "hsl": {
+        "h": 39,
+        "s": 0.85,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 771,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#605853",
+       "share": 0.49
+      },
+      {
+       "color": "#4c4541",
+       "share": 0.39
+      },
+      {
+       "color": "#047857",
+       "share": 0.05
+      },
+      {
+       "color": "#854d0e",
+       "share": 0.03
+      },
+      {
+       "color": "#166534",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#4c4541"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 5,
+     "radius": 8,
+     "height": 36,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Export CSV",
+      "JSON",
+      "New Route Plan",
+      "Dispatches log 6",
+      "Solver analytics & trends"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 4,
+     "hairlineSamples": [
+      "aside.curri-sidebar 60px",
+      "header.curri-topbar 330px",
+      "div.fleet-view-nav 298px",
+      "footer.curri-footer 330px"
+     ],
+     "outlinedBoxes": 2,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 2,
+     "boxRadius": 8,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 844,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 1170,
+    "margins": {
+     "left": 6,
+     "right": 17
+    },
+    "sections": [
+     {
+      "sel": "section.fleet-hero-header",
+      "tag": "section",
+      "top": 76,
+      "height": 185,
+      "words": 26,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Fleet dispatch history",
+       "size": 22,
+       "tag": "h1"
+      },
+      "left": 76,
+      "right": 43,
+      "textLeft": 76,
+      "textRight": 43,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.fleet-kpi-grid",
+      "tag": "section",
+      "top": 277,
+      "height": 251,
+      "words": 29,
+      "media": 0,
+      "middle": 49,
+      "heading": {
+       "text": "190.7",
+       "size": 26,
+       "tag": "div"
+      },
+      "left": 93,
+      "right": 37,
+      "textLeft": 93,
+      "textRight": 37,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "div.fleet-history-stack",
+      "tag": "div",
+      "top": 615,
+      "height": 491,
+      "words": 33,
+      "media": 0,
+      "middle": 816,
+      "heading": null,
+      "left": 89,
+      "right": 0,
+      "textLeft": 89,
+      "textRight": 17,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Fleet dispatch history",
+      "size": 22,
+      "top": 76,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 76,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 1,
+    "bodySize": 13,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "dark": false,
+    "ground": "#fcf0da",
+    "sidebar": {
+     "w": 60,
+     "tag": "aside",
+     "links": 7,
+     "share": 0.15
+    },
+    "topbar": {
+     "h": 60
+    },
+    "canvas": {
+     "left": 16,
+     "right": -827
+    },
+    "hero": {
+     "text": "Fleet dispatch history",
+     "words": 3,
+     "chars": 22,
+     "lines": 1,
+     "size": 22,
+     "vw": 5.6,
+     "font": "-apple-system",
+     "weight": 700,
+     "tracking": -0.01,
+     "leading": 1.2,
+     "top": 76,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 6,
+     "firstScreen": 6,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 6,
+     "radii": [
+      [
+       8,
+       6
+      ]
+     ],
+     "heavyBorders": 0,
+     "borderSamples": [],
+     "heavyShadows": 0,
+     "softShadows": 0,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 1,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 40,
+       "size": 36,
+       "radius": "8px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 6,
+     "leftAligned": 0,
+     "figures": 6,
+     "tabularShare": 1,
+     "kpiMax": 13.5
+    },
+    "rows": {
+     "count": 6,
+     "median": 49
+    },
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.46,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      16,
+      22,
+      26
+     ]
+    },
+    "title": {
+     "text": "Fleet dispatch history",
+     "size": 22,
+     "top": 76
+    },
+    "colourShare": 0.008
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (page background #fcf0da, section #fcf0da, text #fcf0da).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "dev-server",
+   "width": 1440,
+   "message": "This page is served by a development server (Vite, webpack or Next in dev mode).",
+   "fix": "Run the last gate on the production build too (vite build && vite preview, next build && next start, or the built index.html): minifiers and bundlers change the CSS a visitor receives.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "tiny-text",
+   "width": 1440,
+   "message": "50% of the text is under 13px.",
+   "fix": "Data and labels read at 13–14px; keep 11–12px for sublines and axis ticks.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/home/rahul/Projects/Graphene/.taste-skill/runs-inspect-v4/desktop-fold.jpg",
+   "pages": [
+    "/home/rahul/Projects/Graphene/.taste-skill/runs-inspect-v4/desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/home/rahul/Projects/Graphene/.taste-skill/runs-inspect-v4/tablet-fold.jpg",
+   "pages": [
+    "/home/rahul/Projects/Graphene/.taste-skill/runs-inspect-v4/tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/home/rahul/Projects/Graphene/.taste-skill/runs-inspect-v4/mobile-fold.jpg",
+   "pages": [
+    "/home/rahul/Projects/Graphene/.taste-skill/runs-inspect-v4/mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

@@ -23,6 +23,7 @@ export const usePlannerStore = create((set, get) => ({
   setSelectedRoute: (selectedRoute) => set({ selectedRoute }),
   setRunning: (running, progressText = "") => set({ running, progressText }),
   addHistory: (run) => set((state) => ({ history: [run, ...state.history].slice(0, 50) })),
+  clearHistory: () => set({ history: [] }),
   addStop: (stop) => set((state) => ({ planner: { ...state.planner, stops: [...state.planner.stops, stop] }, result: null })),
   removeStop: (id) => set((state) => ({ planner: { ...state.planner, stops: state.planner.stops.filter((stop) => stop.id !== id) }, result: null })),
   setStops: (stops) => set((state) => ({ planner: { ...state.planner, stops }, result: null })),

@@ -126,7 +126,12 @@ export default function PlannerView() {
       runtimeMs: solved.stats.runtimeMs, 
       opCount: solved.stats.operations, 
       createdAt: new Date().toISOString(), 
-      result: solved 
+      result: solved,
+      input: {
+        depot,
+        stops,
+        fleet: { ...fleet }
+      }
     });
 
     if (!solved.validation?.valid) toast.error("Solution generated with constraint notices. Review routes below.");
