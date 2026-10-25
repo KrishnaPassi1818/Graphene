@@ -1,18 +1,41 @@
 import { create } from "zustand";
-import { DEMO_INSTANCE } from "@courier/algorithms";
+import { DEMO_INSTANCE, solveOptimization } from "@courier/algorithms";
 
 const demo = structuredClone(DEMO_INSTANCE);
+
+let initialResult = null;
+try {
+  initialResult = solveOptimization({
+    depot: demo.depot,
+    stops: demo.stops,
+    vehicles: demo.fleet.vehicles,
+    capacity: demo.fleet.capacity,
+    algorithm: "nearest-neighbor",
+    options: { seed: 42, trace: true, averageSpeedKmh: 28, startTimeMinutes: 480 }
+  });
+} catch {
+  initialResult = null;
+}
 
 export const usePlannerStore = create((set, get) => ({
   page: "planner",
   planner: { depot: demo.depot, stops: demo.stops, fleet: demo.fleet, demoMode: true, algorithms: [] },
   algorithm: "nearest-neighbor",
-  result: null,
+  result: initialResult,
   comparison: null,
   selectedRoute: null,
   running: false,
   progressText: "",
-  history: [],
+  history: initialResult ? [{
+    id: `curri-demo-init`,
+    algorithm: "nearest-neighbor",
+    totalDistance: initialResult.totalCost,
+    runtimeMs: initialResult.stats.runtimeMs,
+    opCount: initialResult.stats.operations,
+    createdAt: new Date().toISOString(),
+    result: initialResult,
+    input: { depot: demo.depot, stops: demo.stops, fleet: demo.fleet }
+  }] : [],
   fallbackMode: false,
   setPage: (page) => set({ page }),
   setPlanner: (planner) => set({ planner: { ...get().planner, ...planner }, fallbackMode: false }),

@@ -6,24 +6,25 @@ import {
   ArrowRight, 
   ArrowUpRight, 
   Check, 
+  CheckCircle2,
   ChevronDown, 
-  CircleHelp, 
   Clock3, 
-  Database, 
-  Download, 
+  Cpu,
   FileDown, 
   FileUp, 
-  Gauge, 
   Layers2, 
   LoaderCircle, 
   MapPinned, 
   Minus, 
   Navigation2,
   Package, 
-  Play,
   Plus, 
+  RotateCcw,
   Route as RouteIcon, 
   Search,
+  ShieldAlert,
+  ShieldCheck,
+  Sliders,
   Sparkles, 
   Truck, 
   X, 
@@ -71,15 +72,17 @@ export default function PlannerView() {
   const depot = planner.depot;
   const fleet = planner.fleet ?? { vehicles: 3, capacity: 95, averageSpeedKmh: 28 };
   const totalDemand = stops.reduce((sum, stop) => sum + Number(stop.demand || 0), 0);
+  const totalFleetCapacity = Number(fleet.capacity) * Number(fleet.vehicles);
   const selectedMeta = ALGORITHM_REGISTRY.find((item) => item.id === algorithm);
   const algorithmOptions = ROUTE_ALGORITHM_IDS.map((id) => ALGORITHM_REGISTRY.find((item) => item.id === id)).filter(Boolean);
   const filteredStops = useMemo(() => stops.filter((stop) => `${stop.label} ${stop.id}`.toLowerCase().includes(query.toLowerCase())), [stops, query]);
   const routeCount = result?.routes?.length ?? 0;
   const resultDistance = result?.totalCost;
+  const isOverloaded = totalDemand > totalFleetCapacity;
 
   async function handleOptimize() {
     if (!stops.length) return toast.error("Add at least one delivery stop first.");
-    if (totalDemand > Number(fleet.capacity) * Number(fleet.vehicles)) return toast.error("Fleet capacity is lower than total stop demand.");
+    if (isOverloaded) return toast.error("Fleet capacity is lower than total stop demand. Increase vehicle count or payload limit.");
     
     setRunning(true, "Preparing distance matrix & manifest");
     const payload = {
@@ -94,7 +97,7 @@ export default function PlannerView() {
     let solved;
     let runId = null;
     try {
-      setRunning(true, "Curri optimization engine running…");
+      setRunning(true, "Optimization engine running…");
       const started = await api.optimize(payload);
       runId = started.jobId;
       let job = started.status === "completed" ? await api.job(started.jobId) : null;
@@ -176,6 +179,28 @@ export default function PlannerView() {
     toast.success("Stop removed from manifest.");
   }
 
+  function handleResetDemo() {
+    try {
+      const demo = getDemoInstance();
+      setStops(demo.stops);
+      setFleet(demo.fleet);
+      const solved = solveOptimization({
+        depot: demo.depot,
+        stops: demo.stops,
+        vehicles: demo.fleet.vehicles,
+        capacity: demo.fleet.capacity,
+        algorithm: "nearest-neighbor",
+        options: { seed: 42, trace: true, averageSpeedKmh: 28, startTimeMinutes: 480 }
+      });
+      setResult(solved);
+      setComparison(null);
+      setSelectedRoute(null);
+      toast.success("Reset manifest to standard demo instance.");
+    } catch {
+      toast.error("Could not reset demo instance.");
+    }
+  }
+
   async function handleImport(event) {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -204,116 +229,199 @@ export default function PlannerView() {
     URL.revokeObjectURL(link.href);
   }
 
+  const windowsCount = stops.filter((s) => s.timeWindow).length;
+  const capacityPct = totalFleetCapacity > 0 ? Math.round((totalDemand / totalFleetCapacity) * 100) : 0;
+
   return (
     <div className="curri-planner-stack">
-      {/* Top Banner / Hero Heading */}
-      <section className="curri-hero-banner">
-        <div className="curri-hero-content">
-          <div className="curri-tagline">
-            <span className="curri-tag-dot" />
-            <span>DISPATCH INTELLIGENCE SYSTEM</span>
-            <span className="curri-tag-badge">AI ROUTING ACTIVE</span>
+      {/* Redesigned Dispatch Header */}
+      <header className="planner-header">
+        <div className="planner-header-main">
+          <div className="planner-header-kicker">
+            <span className="live-status-dot" />
+            <span className="kicker-title">Dispatch Operations</span>
+            <span className="kicker-sep">/</span>
+            <span className="kicker-sub">VRP Solver Console</span>
+            {fallbackMode && <span className="kicker-badge-sand">Sandbox Mode</span>}
           </div>
-          <h1>Dynamic Fleet Route Planner</h1>
-          <p>
-            Intelligent multi-stop dispatching, dynamic vehicle payload distribution, and animated route visualization.
+
+          <div className="planner-title-row">
+            <h1>Fleet Route Planner</h1>
+            <div className="planner-status-capsule">
+              {running ? (
+                <span className="status-item is-busy">
+                  <LoaderCircle size={14} className="spin" />
+                  <span>{progressText || "Solving optimization moves…"}</span>
+                </span>
+              ) : result ? (
+                <span className="status-item is-solved">
+                  <CheckCircle2 size={14} />
+                  <span>{routeCount} Routes Dispatched · All Stops Assigned</span>
+                </span>
+              ) : (
+                <span className="status-item is-ready">
+                  <Sparkles size={14} />
+                  <span>Fleet Ready for Optimization</span>
+                </span>
+              )}
+            </div>
+          </div>
+
+          <p className="planner-subtitle">
+            Multi-vehicle capacity-constrained dispatch with scheduled customer time windows and real-time combinatorial optimization.
           </p>
         </div>
 
-        <div className="curri-hero-actions">
-          <button className="curri-btn curri-btn-secondary" onClick={downloadTemplate} title="Download sample CSV format">
-            <FileDown size={15} />
+        {/* Operational Actions */}
+        <div className="planner-actions-toolbar">
+          <button 
+            type="button" 
+            className="planner-btn-secondary" 
+            onClick={downloadTemplate} 
+            title="Download CSV format template"
+          >
+            <FileDown size={14} />
             <span>CSV Template</span>
           </button>
           
           <div className="import-btn-wrap">
-            <button className="curri-btn curri-btn-secondary" onClick={() => fileRef.current?.click()}>
-              <FileUp size={15} />
+            <button 
+              type="button" 
+              className="planner-btn-secondary" 
+              onClick={() => fileRef.current?.click()}
+              title="Import delivery stops manifest from CSV file"
+            >
+              <FileUp size={14} />
               <span>Import Manifest</span>
             </button>
             <input ref={fileRef} type="file" accept=".csv,text/csv" hidden onChange={handleImport} />
           </div>
 
           <button 
-            className="curri-btn curri-btn-secondary" 
+            type="button" 
+            className="planner-btn-secondary" 
+            onClick={handleResetDemo}
+            title="Reset manifest and fleet to standard demo instance"
+          >
+            <RotateCcw size={14} />
+            <span>Reset Demo</span>
+          </button>
+
+          <button 
+            type="button" 
+            className="planner-btn-secondary" 
             onClick={handleCompare} 
             disabled={running || !stops.length}
-            title="Benchmark 4 algorithms on this instance"
+            title="Benchmark 4 algorithms on this instance in parallel"
           >
-            <ArrowDownUp size={15} />
+            <ArrowDownUp size={14} />
             <span>Compare Solvers</span>
           </button>
 
           <button 
-            className="curri-btn curri-btn-primary curri-btn-glow" 
+            type="button" 
+            className="planner-btn-primary" 
             onClick={handleOptimize} 
-            disabled={running || !stops.length}
+            disabled={running || !stops.length || isOverloaded}
+            title="Compute optimal vehicle routes and dispatch schedules"
           >
-            {running ? <LoaderCircle size={16} className="spin" /> : <Sparkles size={16} />}
+            {running ? <LoaderCircle size={15} className="spin" /> : <Sparkles size={15} />}
             <span>{running ? "Optimizing Fleet…" : "Optimize Routes"}</span>
-            <ArrowRight size={15} />
+            <ArrowRight size={14} />
           </button>
         </div>
-      </section>
+      </header>
 
-      {fallbackMode && (
-        <div className="curri-offline-pill">
-          <Zap size={15} />
-          <span><b>Sandbox Mode:</b> Running browser-based fast combinatorial engine.</span>
+      {/* Modern Redesigned Metrics Strip */}
+      <section className="planner-metrics-strip">
+        <div className="metric-tile">
+          <div className="metric-tile-header">
+            <span className="metric-tile-label">Delivery Manifest</span>
+            <MapPinned size={16} className="metric-tile-icon" />
+          </div>
+          <div className="metric-tile-value">
+            {String(stops.length).padStart(2, "0")} <span className="value-unit">stops</span>
+          </div>
+          <div className="metric-tile-sub">
+            <span>{windowsCount} scheduled time windows</span>
+            <span className="metric-dot">•</span>
+            <span>{planner.depot?.label || "Central Hub"}</span>
+          </div>
         </div>
-      )}
 
-      {/* Modern Curri Metrics Overview Row */}
-      <section className="curri-metrics-strip">
-        <CurriMetricCard 
-          icon={<MapPinned size={18} />} 
-          label="MANIFEST STOPS" 
-          value={String(stops.length).padStart(2, "0")} 
-          detail={`${stops.filter((s) => s.timeWindow).length} scheduled windows`} 
-          theme="blue" 
-        />
-        <CurriMetricCard 
-          icon={<Truck size={18} />} 
-          label="ACTIVE FLEET" 
-          value={String(fleet.vehicles).padStart(2, "0")} 
-          detail={`${fleet.capacity} kg payload limit`} 
-          theme="green" 
-        />
-        <CurriMetricCard 
-          icon={<Package size={18} />} 
-          label="TOTAL PAYLOAD" 
-          value={`${totalDemand.toFixed(0)} kg`} 
-          detail={`${(totalDemand / Math.max(1, fleet.vehicles)).toFixed(0)} kg avg per vehicle`} 
-          theme="amber" 
-        />
-        <CurriMetricCard 
-          icon={<RouteIcon size={18} />} 
-          label="PLANNED FLEET DISTANCE" 
-          value={resultDistance == null ? "--" : formatDistance(resultDistance)} 
-          detail={result ? `${routeCount} vehicles deployed` : "Run optimizer to plan"} 
-          theme="emerald" 
-          highlight={resultDistance != null} 
-        />
+        <div className="metric-tile">
+          <div className="metric-tile-header">
+            <span className="metric-tile-label">Active Fleet Capacity</span>
+            <Truck size={16} className="metric-tile-icon" />
+          </div>
+          <div className="metric-tile-value">
+            {String(fleet.vehicles).padStart(2, "0")} <span className="value-unit">vans</span>
+            <span className="metric-capacity-tag">/ {totalFleetCapacity} kg</span>
+          </div>
+          <div className="metric-tile-sub">
+            <span>{fleet.capacity} kg limit per vehicle</span>
+            <span className="metric-dot">•</span>
+            <span>{fleet.averageSpeedKmh || 28} km/h speed</span>
+          </div>
+        </div>
+
+        <div className={`metric-tile ${isOverloaded ? "is-warning" : ""}`}>
+          <div className="metric-tile-header">
+            <span className="metric-tile-label">Cargo Demand & Load</span>
+            <Package size={16} className="metric-tile-icon" />
+          </div>
+          <div className="metric-tile-value">
+            {totalDemand.toFixed(0)} <span className="value-unit">kg</span>
+            <span className={`metric-load-badge ${isOverloaded ? "badge-overload" : "badge-safe"}`}>
+              {capacityPct}% capacity
+            </span>
+          </div>
+          <div className="metric-tile-sub">
+            <span>Avg {(totalDemand / Math.max(1, fleet.vehicles)).toFixed(0)} kg / vehicle</span>
+            <span className="metric-dot">•</span>
+            <span>{isOverloaded ? "Fleet capacity exceeded" : "Within payload limits"}</span>
+          </div>
+        </div>
+
+        <div className={`metric-tile ${resultDistance != null ? "is-highlight" : ""}`}>
+          <div className="metric-tile-header">
+            <span className="metric-tile-label">Planned Fleet Distance</span>
+            <RouteIcon size={16} className="metric-tile-icon" />
+          </div>
+          <div className="metric-tile-value">
+            {resultDistance == null ? "--" : formatDistance(resultDistance)}
+          </div>
+          <div className="metric-tile-sub">
+            {result ? (
+              <>
+                <span>{routeCount} vehicles deployed</span>
+                <span className="metric-dot">•</span>
+                <span>{Number(result.stats?.runtimeMs || 0).toFixed(1)} ms latency</span>
+              </>
+            ) : (
+              <span>Click "Optimize Routes" to simulate dispatch</span>
+            )}
+          </div>
+        </div>
       </section>
 
       {/* Main Workbench Layout: Left Control Panel + Right Interactive Map & Route Cards */}
       <section className="curri-workbench">
         {/* Left Control Center Panel */}
-        <aside className="curri-panel">
-          <div className="curri-panel-head">
-            <div>
-              <span className="panel-kicker">DISPATCH CONFIGURATION</span>
-              <h2>Fleet & Algorithm</h2>
+        <aside className="curri-panel planner-sidebar">
+          {/* Section 1: Optimization Solver */}
+          <div className="sidebar-section">
+            <div className="sidebar-section-header">
+              <div>
+                <span className="panel-kicker">Solver Strategy</span>
+                <h2 className="sidebar-title">Optimization Algorithm</h2>
+              </div>
+              <div className="solver-badge">
+                <Zap size={12} />
+                <span>DAA</span>
+              </div>
             </div>
-            <div className="panel-badge-soft">
-              <Zap size={13} />
-              <span>DYNAMIC</span>
-            </div>
-          </div>
 
-          {/* Algorithm Selector Box */}
-          <div className="curri-select-box">
-            <label className="curri-field-label">OPTIMIZATION ALGORITHM</label>
             <div className="curri-select-wrapper">
               <select 
                 value={algorithm} 
@@ -324,114 +432,121 @@ export default function PlannerView() {
                   <option value={opt.id} key={opt.id}>{opt.name}</option>
                 ))}
               </select>
-              <ChevronDown size={15} className="select-arrow" />
+              <ChevronDown size={14} className="select-arrow" />
             </div>
-            
+
             <div className="algorithm-meta-row">
               <span className="algo-badge">{selectedMeta?.paradigm ?? "Heuristic"}</span>
               <span className="algo-complexity">{selectedMeta?.complexity ?? "O(n²)"}</span>
             </div>
+
             <p className="algo-description-text">{selectedMeta?.description}</p>
           </div>
 
           <div className="curri-divider" />
 
-          {/* Fleet Parameters */}
-          <div className="curri-fleet-section">
-            <div className="fleet-section-head">
-              <span className="curri-field-label">FLEET VEHICLES & CAPACITIES</span>
-              <Truck size={15} className="text-muted" />
+          {/* Section 2: Fleet Parameters */}
+          <div className="sidebar-section">
+            <div className="sidebar-section-header">
+              <div>
+                <span className="panel-kicker">Vehicle Logistics</span>
+                <h2 className="sidebar-title">Fleet Capacities</h2>
+              </div>
+              <Sliders size={14} className="text-muted" />
             </div>
 
-            {/* Vehicles Stepper */}
-            <div className="curri-config-row">
-              <div className="config-label-group">
-                <div className="config-icon-box bg-blue-subtle">
-                  <Truck size={15} />
-                </div>
-                <div>
+            <div className="fleet-control-rows">
+              {/* Vehicles Stepper */}
+              <div className="config-item-row">
+                <div className="config-text-group">
                   <b>Dispatch Vehicles</b>
-                  <small>Available vans in hub</small>
+                  <small>Available vans in depot</small>
+                </div>
+                <div className="curri-stepper">
+                  <button 
+                    type="button" 
+                    disabled={fleet.vehicles <= 1} 
+                    onClick={() => handleFleetChange("vehicles", Math.max(1, Number(fleet.vehicles) - 1))}
+                    title="Decrease vehicle count"
+                  >
+                    <Minus size={13} />
+                  </button>
+                  <span className="stepper-val">{String(fleet.vehicles).padStart(2, "0")}</span>
+                  <button 
+                    type="button" 
+                    disabled={fleet.vehicles >= 12} 
+                    onClick={() => handleFleetChange("vehicles", Math.min(12, Number(fleet.vehicles) + 1))}
+                    title="Increase vehicle count"
+                  >
+                    <Plus size={13} />
+                  </button>
                 </div>
               </div>
-              <div className="curri-stepper">
-                <button 
-                  type="button" 
-                  disabled={fleet.vehicles <= 1} 
-                  onClick={() => handleFleetChange("vehicles", Math.max(1, Number(fleet.vehicles) - 1))}
-                >
-                  <Minus size={13} />
-                </button>
-                <span>{String(fleet.vehicles).padStart(2, "0")}</span>
-                <button 
-                  type="button" 
-                  disabled={fleet.vehicles >= 12} 
-                  onClick={() => handleFleetChange("vehicles", Math.min(12, Number(fleet.vehicles) + 1))}
-                >
-                  <Plus size={13} />
-                </button>
-              </div>
-            </div>
 
-            {/* Vehicle Payload Limit */}
-            <div className="curri-config-row">
-              <div className="config-label-group">
-                <div className="config-icon-box bg-green-subtle">
-                  <Package size={15} />
+              {/* Max Payload Limit */}
+              <div className="config-item-row">
+                <div className="config-text-group">
+                  <b>Payload Limit</b>
+                  <small>Max capacity per van</small>
                 </div>
-                <div>
-                  <b>Vehicle Max Payload</b>
-                  <small>Per van capacity</small>
+                <div className="curri-unit-input">
+                  <input 
+                    type="number" 
+                    min="10" 
+                    max="1500" 
+                    step="5" 
+                    value={fleet.capacity} 
+                    onChange={(e) => handleFleetChange("capacity", Math.max(10, Number(e.target.value) || 10))} 
+                  />
+                  <span className="unit-tag">kg</span>
                 </div>
               </div>
-              <div className="curri-unit-input">
-                <input 
-                  type="number" 
-                  min="10" 
-                  max="1500" 
-                  step="5" 
-                  value={fleet.capacity} 
-                  onChange={(e) => handleFleetChange("capacity", Math.max(10, Number(e.target.value) || 10))} 
-                />
-                <span className="unit-tag">kg</span>
-              </div>
-            </div>
 
-            {/* Transit Speed Model */}
-            <div className="curri-config-row">
-              <div className="config-label-group">
-                <div className="config-icon-box bg-amber-subtle">
-                  <Gauge size={15} />
-                </div>
-                <div>
+              {/* Transit Velocity */}
+              <div className="config-item-row">
+                <div className="config-text-group">
                   <b>Transit Velocity</b>
-                  <small>Urban speed estimation</small>
+                  <small>Urban transit speed</small>
                 </div>
-              </div>
-              <div className="curri-unit-input">
-                <input 
-                  type="number" 
-                  min="10" 
-                  max="120" 
-                  value={fleet.averageSpeedKmh ?? 28} 
-                  onChange={(e) => handleFleetChange("averageSpeedKmh", Number(e.target.value) || 28)} 
-                />
-                <span className="unit-tag">km/h</span>
+                <div className="curri-unit-input">
+                  <input 
+                    type="number" 
+                    min="10" 
+                    max="120" 
+                    value={fleet.averageSpeedKmh ?? 28} 
+                    onChange={(e) => handleFleetChange("averageSpeedKmh", Number(e.target.value) || 28)} 
+                  />
+                  <span className="unit-tag">km/h</span>
+                </div>
               </div>
             </div>
 
-            {/* Payload Utilization Bar */}
-            <div className={`curri-capacity-meter ${totalDemand > fleet.capacity * fleet.vehicles ? "meter-overload" : "meter-ok"}`}>
-              <div className="meter-head">
-                <span className="meter-status">
-                  {totalDemand > fleet.capacity * fleet.vehicles ? "Fleet Overbooked" : "Fleet Capacity Verified"}
-                </span>
-                <b>{totalDemand.toFixed(0)} / {(fleet.capacity * fleet.vehicles).toFixed(0)} kg</b>
+            {/* Capacity Meter */}
+            <div className={`capacity-gauge-card ${isOverloaded ? "gauge-alert" : ""}`}>
+              <div className="gauge-header">
+                <div className="gauge-status-text">
+                  {isOverloaded ? (
+                    <>
+                      <ShieldAlert size={14} className="text-alert" />
+                      <span>Fleet Overbooked</span>
+                    </>
+                  ) : (
+                    <>
+                      <ShieldCheck size={14} className="text-safe" />
+                      <span>Capacity Verified</span>
+                    </>
+                  )}
+                </div>
+                <div className="gauge-numbers">
+                  <strong>{totalDemand.toFixed(0)}</strong>
+                  <span>/ {totalFleetCapacity} kg ({capacityPct}%)</span>
+                </div>
               </div>
-              <div className="meter-bar-track">
+
+              <div className="gauge-bar-track">
                 <div 
-                  className="meter-bar-fill" 
-                  style={{ width: `${Math.min(100, (totalDemand / (fleet.capacity * fleet.vehicles || 1)) * 100)}%` }} 
+                  className={`gauge-bar-fill ${isOverloaded ? "fill-overload" : ""}`}
+                  style={{ width: `${Math.min(100, capacityPct)}%` }} 
                 />
               </div>
             </div>
@@ -439,52 +554,70 @@ export default function PlannerView() {
 
           <div className="curri-divider" />
 
-          {/* Delivery Manifest List */}
-          <div className="curri-manifest-section">
-            <div className="manifest-section-head">
+          {/* Section 3: Delivery Manifest */}
+          <div className="sidebar-section manifest-sidebar-section">
+            <div className="sidebar-section-header">
               <div>
-                <span className="curri-field-label">DELIVERY MANIFEST</span>
-                <span className="manifest-count-chip">{stops.length} STOPS</span>
+                <span className="panel-kicker">Waypoint Manifest</span>
+                <h2 className="sidebar-title">Delivery Stops</h2>
               </div>
               <button 
                 type="button" 
-                className="curri-icon-btn" 
-                title="Add new stop" 
+                className="add-stop-mini-btn" 
+                title="Add a new delivery stop"
                 onClick={() => setShowAdd(true)}
               >
-                <Plus size={16} />
+                <Plus size={13} />
+                <span>Add Stop</span>
               </button>
             </div>
 
+            {/* Search Input */}
             <div className="curri-search-input">
               <Search size={14} />
               <input 
-                placeholder="Search stops or IDs…" 
+                placeholder="Search stops, labels, or IDs…" 
                 value={query} 
                 onChange={(e) => setQuery(e.target.value)} 
               />
+              {query && (
+                <button type="button" className="clear-search-btn" onClick={() => setQuery("")}>
+                  <X size={12} />
+                </button>
+              )}
               <span className="match-count">{filteredStops.length}</span>
             </div>
 
+            {/* Stop List */}
             <div className="curri-stop-list">
               {filteredStops.length ? (
                 filteredStops.map((stop) => {
                   const index = stops.findIndex((item) => item.id === stop.id);
                   const routeIndex = result?.routes?.findIndex((route) => route.includes(index + 1)) ?? -1;
-                  const routeColor = routeIndex >= 0 ? ROUTE_COLORS[routeIndex % ROUTE_COLORS.length] : "#cbd5e1";
+                  const routeColor = routeIndex >= 0 ? ROUTE_COLORS[routeIndex % ROUTE_COLORS.length] : "var(--theme-charcoal)";
 
                   return (
                     <div className="curri-stop-item" key={stop.id}>
-                      <span className="stop-badge" style={{ backgroundColor: routeColor }}>
+                      <span 
+                        className="stop-badge" 
+                        style={{ 
+                          backgroundColor: routeColor,
+                          border: routeIndex >= 0 ? "none" : "1px solid var(--theme-border)"
+                        }}
+                        title={routeIndex >= 0 ? `Assigned to Route ${routeIndex + 1}` : "Unassigned"}
+                      >
                         {String(index + 1).padStart(2, "0")}
                       </span>
+
                       <div className="stop-info">
-                        <b>{stop.label}</b>
+                        <b title={stop.label}>{stop.label}</b>
                         <small>
                           {stop.id} <span>•</span> {stop.timeWindow ? `${asClock(stop.timeWindow.start)}–${asClock(stop.timeWindow.end)}` : "Standard window"}
                         </small>
                       </div>
+
                       <span className="stop-demand-pill">{stop.demand} kg</span>
+
                       <button 
                         type="button" 
                         className="stop-delete-btn" 
@@ -497,26 +630,34 @@ export default function PlannerView() {
                   );
                 })
               ) : (
-                <div className="curri-empty-stops">No delivery stops found.</div>
+                <div className="curri-empty-stops">
+                  <span>No delivery stops match your search.</span>
+                </div>
               )}
             </div>
 
-            <button type="button" className="curri-add-stop-block" onClick={() => setShowAdd(true)}>
-              <Plus size={15} />
-              <span>Add Delivery Stop</span>
-            </button>
+            <div className="manifest-actions-row">
+              <button 
+                type="button" 
+                className="curri-add-stop-block" 
+                onClick={() => setShowAdd(true)}
+              >
+                <Plus size={14} />
+                <span>Add Delivery Stop</span>
+              </button>
+            </div>
           </div>
         </aside>
 
         {/* Right Main Map Column + Route Cards Strip */}
         <div className="curri-map-column">
-          {/* Map Container Card */}
+          {/* Interactive Map & Route Radar (INTACT AS REQUESTED) */}
           <div className="curri-map-card">
             <div className="curri-map-header">
               <div className="map-header-left">
                 <div className="map-header-tag">
                   <span className="live-pulse-dot" />
-                  <span>{result ? "OPTIMIZED NETWORK" : "LIVE NETWORK"}</span>
+                  <span>{result ? "Optimized Network" : "Live Network"}</span>
                 </div>
                 <h2>Interactive Map & Route Radar</h2>
                 <p>{planner.depot?.label || "Main Depot Hub"} · {planner.depot?.address || "Ludhiana Regional Center"}</p>
@@ -587,12 +728,12 @@ export default function PlannerView() {
 
               <div className="map-footer-badge">
                 <Navigation2 size={13} />
-                <span>HAVERSINE MATRIX · ZERO KEY</span>
+                <span>Haversine Matrix · Exact Matrix</span>
               </div>
             </div>
           </div>
 
-          {/* Route Summary Cards Strip (Curri Style) */}
+          {/* Redesigned Vehicle Route Cards Strip */}
           <div className="curri-routes-strip">
             {result ? (
               result.routes.map((route, index) => (
@@ -611,14 +752,15 @@ export default function PlannerView() {
             ) : (
               <div className="curri-ready-card">
                 <div className="ready-spark-icon">
-                  <Sparkles size={20} />
+                  <Truck size={22} />
                 </div>
                 <div className="ready-text">
-                  <b>Routes Ready for Dispatch</b>
-                  <span>Configure fleet settings or pick an algorithm, then click "Optimize Routes" to simulate vehicles.</span>
+                  <b>Vehicle Dispatch Manifest Pending</b>
+                  <span>Configure fleet capacity or switch combinatorial algorithm, then click "Optimize Routes" to generate vehicle delivery assignments.</span>
                 </div>
                 <button type="button" className="ready-action-btn" onClick={handleOptimize}>
-                  Run Fast Solver <ArrowRight size={14} />
+                  <span>Run Fast Solver</span>
+                  <ArrowRight size={14} />
                 </button>
               </div>
             )}
@@ -626,31 +768,34 @@ export default function PlannerView() {
         </div>
       </section>
 
-      {/* Decision Playback & Constraint Analytics */}
+      {/* Redesigned Decision Playback & Constraint Analytics */}
       <section className="curri-analysis-grid">
+        {/* Left: Decision Playback with upgraded TracePlayer */}
         <div className="curri-card trace-card">
           <div className="curri-card-head">
             <div>
-              <span className="panel-kicker">DECISION PLAYBACK</span>
+              <span className="panel-kicker">Decision Playback</span>
               <h2>Algorithm Execution Step-by-Step</h2>
             </div>
             <span className="curri-status-tag">
-              <Activity size={13} />
-              {result?.trace?.length ? `${result.trace.length} LOGGED STEPS` : "TRACE READY"}
+              <Activity size={14} />
+              <span>{result?.trace?.length ? `${result.trace.length} Logged Steps` : "Trace Ready"}</span>
             </span>
           </div>
           <TracePlayer trace={result?.trace ?? []} algorithm={selectedMeta?.name} />
         </div>
 
+        {/* Right: Fleet Constraints & Telemetry */}
         <div className="curri-card validation-card">
           <div className="curri-card-head">
             <div>
-              <span className="panel-kicker">VERIFICATION</span>
+              <span className="panel-kicker">Constraint Verification</span>
               <h2>Fleet Constraints & Telemetry</h2>
             </div>
-            <div className="curri-round-icon">
-              <Activity size={16} />
-            </div>
+            <span className="curri-status-tag">
+              <ShieldCheck size={14} />
+              <span>{result ? (result.validation?.valid ? "Constraints Verified" : "Notices Detected") : "Pre-check Ready"}</span>
+            </span>
           </div>
 
           {result ? (
@@ -658,44 +803,54 @@ export default function PlannerView() {
               <ValidationRow 
                 label="Stop Coverage Verification" 
                 okay={result.validation?.coverageFeasible} 
-                detail={`${stops.length} stops assigned across ${routeCount} vehicles`} 
+                detail={`${stops.length} of ${stops.length} stops assigned across ${routeCount} vehicles`} 
               />
               <ValidationRow 
                 label="Axle & Vehicle Payload Limit" 
                 okay={result.validation?.capacityFeasible} 
-                detail={`${Math.max(...(result.loads ?? [0]))} / ${fleet.capacity} kg max load`} 
+                detail={`Peak load: ${Math.max(...(result.loads ?? [0]))} kg / ${fleet.capacity} kg limit per van`} 
               />
               <ValidationRow 
                 label="Time Windows & Scheduling" 
                 okay={result.validation?.timeWindowFeasible} 
-                detail={`${stops.filter((s) => s.timeWindow).length} windows verified`} 
+                detail={`${windowsCount} scheduled customer delivery windows confirmed`} 
               />
 
               <div className="telemetry-stat-pills">
                 <div className="telemetry-pill">
-                  <Clock3 size={13} />
-                  <span><b>{Number(result.stats.runtimeMs).toFixed(1)}</b> ms</span>
+                  <Clock3 size={15} />
+                  <div className="pill-content">
+                    <span className="pill-title">Runtime</span>
+                    <b>{Number(result.stats.runtimeMs).toFixed(1)} ms</b>
+                  </div>
                 </div>
                 <div className="telemetry-pill">
-                  <Activity size={13} />
-                  <span><b>{Number(result.stats.operations).toLocaleString()}</b> ops</span>
+                  <Cpu size={15} />
+                  <div className="pill-content">
+                    <span className="pill-title">Operations</span>
+                    <b>{Number(result.stats.operations).toLocaleString()} ops</b>
+                  </div>
                 </div>
                 <div className="telemetry-pill">
-                  <ArrowDownUp size={13} />
-                  <span><b>{result.stats.iterations}</b> moves</span>
+                  <ArrowDownUp size={15} />
+                  <div className="pill-content">
+                    <span className="pill-title">Branch Moves</span>
+                    <b>{result.stats.iterations} moves</b>
+                  </div>
                 </div>
               </div>
             </div>
           ) : (
             <div className="curri-teaser-box">
-              <p>Explore combinatorial heuristics, dynamic programming, and local search algorithms tested under identical conditions.</p>
+              <p>Explore combinatorial heuristics, dynamic programming, and local search algorithms tested under identical road conditions.</p>
               <div className="curri-pill-tags">
-                <span>Deterministic Seeded</span>
-                <span>Sub-millisecond</span>
-                <span>CVRP Solvers</span>
+                <span className="teaser-pill">Deterministic Seeded</span>
+                <span className="teaser-pill">Sub-millisecond</span>
+                <span className="teaser-pill">CVRP Solvers</span>
               </div>
               <button type="button" className="curri-link-btn" onClick={() => navigate("/algorithms")}>
-                Browse algorithm library <ArrowUpRight size={14} />
+                <span>Browse algorithm library</span>
+                <ArrowUpRight size={14} />
               </button>
             </div>
           )}
@@ -731,19 +886,6 @@ export default function PlannerView() {
   );
 }
 
-function CurriMetricCard({ icon, label, value, detail, theme, highlight }) {
-  return (
-    <div className={`curri-metric-card theme-${theme} ${highlight ? "card-highlight" : ""}`}>
-      <div className="metric-head">
-        <span className="metric-icon">{icon}</span>
-        <span className="metric-label">{label}</span>
-      </div>
-      <div className="metric-number">{value}</div>
-      <div className="metric-detail">{detail}</div>
-    </div>
-  );
-}
-
 function CurriRouteCard({ route, index, distance, load, capacity, stops, active, onClick }) {
   const names = route.slice(1, -1).map((stopIndex) => stops[stopIndex - 1]?.label).filter(Boolean);
   const color = ROUTE_COLORS[index % ROUTE_COLORS.length];
@@ -762,18 +904,19 @@ function CurriRouteCard({ route, index, distance, load, capacity, stops, active,
         <div className="route-card-badge">
           <span className="route-color-indicator" style={{ backgroundColor: color }} />
           <b>VEHICLE {String(index + 1).padStart(2, "0")}</b>
+          {active && <span className="route-focus-tag">Focused</span>}
         </div>
         <span className="route-card-distance">{formatDistance(distance)}</span>
       </div>
 
       <div className="route-card-stats">
         <div className="route-stat-box">
-          <span className="stat-name">PAYLOAD UTILIZATION</span>
-          <span className="stat-val">{load} / {capacity} kg ({pct}%)</span>
+          <span className="stat-name">Payload Utilization</span>
+          <span className="stat-val">{load} / {capacity} kg <strong>({pct}%)</strong></span>
         </div>
-        <div className="route-stat-box">
-          <span className="stat-name">EST. ARRIVAL</span>
-          <span className="stat-val">{etaFormatted} hrs</span>
+        <div className="route-stat-box text-right">
+          <span className="stat-name">Est. Arrival</span>
+          <span className="stat-val">{etaFormatted} hrs <small>(~{estMinutes}m)</small></span>
         </div>
       </div>
 
@@ -793,8 +936,11 @@ function CurriRouteCard({ route, index, distance, load, capacity, stops, active,
       </div>
 
       <div className="route-card-bottom">
-        <span>{route.length - 2} Delivery Stops</span>
-        <span className="status-badge-ok">Dispatched</span>
+        <span className="stops-count-tag">{route.length - 2} Delivery Stops</span>
+        <span className="status-badge-ok">
+          <span className="status-badge-dot" style={{ backgroundColor: color }} />
+          <span>Dispatched</span>
+        </span>
       </div>
     </div>
   );
@@ -802,9 +948,9 @@ function CurriRouteCard({ route, index, distance, load, capacity, stops, active,
 
 function ValidationRow({ label, okay, detail }) {
   return (
-    <div className="curri-validation-row">
+    <div className={`curri-validation-row ${okay ? "row-pass" : "row-fail"}`}>
       <div className={`check-bubble ${okay ? "bubble-pass" : "bubble-fail"}`}>
-        {okay ? <Check size={13} /> : <X size={13} />}
+        {okay ? <Check size={14} strokeWidth={2.5} /> : <X size={14} strokeWidth={2.5} />}
       </div>
       <div className="validation-text">
         <b>{label}</b>
@@ -825,12 +971,12 @@ function CurriComparisonPanel({ rows }) {
     <section className="curri-card compare-card">
       <div className="curri-card-head">
         <div>
-          <span className="panel-kicker">MULTI-SOLVER BENCHMARK</span>
+          <span className="panel-kicker">Multi-Solver Benchmark</span>
           <h2>Algorithm Performance Comparison</h2>
         </div>
         <span className="curri-status-tag">
-          <ArrowDownUp size={13} />
-          {rows.length} SOLVERS EVALUATED
+          <ArrowDownUp size={14} />
+          <span>{rows.length} Solvers Evaluated</span>
         </span>
       </div>
 
@@ -846,7 +992,7 @@ function CurriComparisonPanel({ rows }) {
               <div className="compare-item-top">
                 <span className="compare-dot" style={{ backgroundColor: color }} />
                 <b>{ALGORITHM_REGISTRY.find((item) => item.id === row.algorithm)?.name ?? row.name ?? row.algorithm}</b>
-                {isBest && <span className="best-tag">OPTIMAL</span>}
+                {isBest && <span className="best-tag">Optimal</span>}
               </div>
 
               {solved ? (
@@ -861,7 +1007,7 @@ function CurriComparisonPanel({ rows }) {
                   </div>
                   <div className="compare-item-gap">
                     <span>Gap vs Best:</span>
-                    <b>{gap == null ? "N/A" : `${gap.toFixed(1)}%`}</b>
+                    <b>{gap == null ? "N/A" : gap === 0 ? "0.0% (Best)" : `+${gap.toFixed(1)}%`}</b>
                   </div>
                 </>
               ) : (
@@ -917,7 +1063,7 @@ function StopModal({ depot, initialCoords, onClose, onSave }) {
       <form className="curri-modal-card" onSubmit={submit}>
         <div className="modal-top">
           <div>
-            <span className="panel-kicker">MANIFEST EDITOR</span>
+            <span className="panel-kicker">Manifest Editor</span>
             <h2>Add Delivery Stop</h2>
           </div>
           <button type="button" className="curri-icon-btn" onClick={onClose}><X size={17} /></button>
@@ -955,8 +1101,8 @@ function StopModal({ depot, initialCoords, onClose, onSave }) {
         </div>
 
         <div className="modal-buttons">
-          <button type="button" className="curri-btn curri-btn-secondary" onClick={onClose}>Cancel</button>
-          <button type="submit" className="curri-btn curri-btn-primary" disabled={saving}>
+          <button type="button" className="planner-btn-secondary" onClick={onClose}>Cancel</button>
+          <button type="submit" className="planner-btn-primary" disabled={saving}>
             {saving ? <LoaderCircle className="spin" size={15} /> : <Plus size={15} />}
             <span>Add Stop</span>
           </button>

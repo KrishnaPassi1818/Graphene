@@ -1,0 +1,2067 @@
+{
+ "url": "http://localhost:4173/",
+ "at": "2026-10-25T08:40:59.333Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.79,
+    0.68
+   ],
+   "motion": {
+    "elements": 51,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 51,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 1575,
+     "screens": 1.8,
+     "words": 453,
+     "img": 16,
+     "video": 0,
+     "canvas": 0,
+     "svg": 58,
+     "sections": 3,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 16,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "3355.png",
+      "3355.png",
+      "3356.png",
+      "3356.png",
+      "3354.png",
+      "3354.png",
+      "3355.png",
+      "3355.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "★"
+     ],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Fleet Route Planner",
+     "words": 3,
+     "chars": 19,
+     "lines": 1,
+     "size": 26,
+     "vw": 1.8,
+     "font": "-apple-system",
+     "weight": 850,
+     "tracking": -0.02,
+     "leading": 1.15,
+     "top": 105,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Fleet Route Planner",
+     "words": 3,
+     "lines": 1,
+     "size": 26,
+     "font": "-apple-system"
+    },
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "-apple-system",
+       "share": 0.98,
+       "mono": false
+      },
+      {
+       "family": "Helvetica Neue",
+       "share": 0.02,
+       "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0,
+       "mono": true
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24,
+      26
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "-apple-system",
+      "size": 11,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7
+     },
+     "measureChars": 92,
+     "max": {
+      "size": 26,
+      "vw": 1.8,
+      "font": "-apple-system",
+      "text": "Fleet Route Planner"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "monospace"
+     ],
+     "monoSamples": [
+      "O(n²)"
+     ],
+     "microLabels": 15,
+     "microLabelShare": 0.1,
+     "microSamples": [
+      "LOGISTICS DISPATCH INTELLIGENCE",
+      "CVRP ENGINE",
+      "DELIVERY MANIFEST",
+      "ACTIVE FLEET CAPACITY",
+      "CARGO DEMAND & LOAD",
+      "PLANNED FLEET DISTANCE"
+     ],
+     "upperShare": 0.22,
+     "centerShare": 0.06,
+     "smallText": 85
+    },
+    "eyebrows": [],
+    "numbered": [
+     {
+      "text": "03",
+      "size": 24,
+      "top": 289
+     },
+     {
+      "text": "03",
+      "size": 12,
+      "top": 614
+     },
+     {
+      "text": "01",
+      "size": 9.5,
+      "top": 924
+     },
+     {
+      "text": "02",
+      "size": 9.5,
+      "top": 969
+     },
+     {
+      "text": "03",
+      "size": 9.5,
+      "top": 1014
+     },
+     {
+      "text": "04",
+      "size": 9.5,
+      "top": 1059
+     },
+     {
+      "text": "05",
+      "size": 9.5,
+      "top": 1104
+     },
+     {
+      "text": "06",
+      "size": 9.5,
+      "top": 1149
+     },
+     {
+      "text": "07",
+      "size": 9.5,
+      "top": 1194
+     },
+     {
+      "text": "08",
+      "size": 9.5,
+      "top": 1239
+     },
+     {
+      "text": "09",
+      "size": 9.5,
+      "top": 1284
+     }
+    ],
+    "color": {
+     "bodyBg": "#fcf0da",
+     "bodyBgHsl": {
+      "h": 39,
+      "s": 0.85,
+      "l": 0.92
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fcf0da",
+       "top": 0,
+       "hsl": {
+        "h": 39,
+        "s": 0.85,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 369,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      },
+      {
+       "color": "#dddddd",
+       "top": 439,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 0.87
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#605853",
+       "share": 0.44
+      },
+      {
+       "color": "#4c4541",
+       "share": 0.4
+      },
+      {
+       "color": "#fcf0da",
+       "share": 0.06
+      },
+      {
+       "color": "#aeac78",
+       "share": 0.03
+      },
+      {
+       "color": "#fdf0da",
+       "share": 0.03
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#4c4541"
+     },
+     "lowContrast": [
+      {
+       "text": "CVRP ENGINE",
+       "ratio": 2.1,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#aeac78",
+       "bg": "#fcf0da"
+      },
+      {
+       "text": "SOLVER STRATEGY",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "VEHICLE LOGISTICS",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "WAYPOINT MANIFEST",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "DECISION PLAYBACK",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "VERIFICATION",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 10,
+     "inHero": 8,
+     "radius": 8,
+     "height": 36,
+     "withShadow": 5,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Route Planner",
+      "CSV Template",
+      "Import Manifest",
+      "Reset Demo",
+      "Compare Solvers"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 16,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px",
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px",
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px",
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px"
+     ],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 8,
+     "hairlineSamples": [
+      "aside.curri-sidebar 250px",
+      "header.curri-topbar 1190px",
+      "div.config-item-row 302px",
+      "div.config-item-row 302px",
+      "div.config-item-row 302px"
+     ],
+     "outlinedBoxes": 10,
+     "dashed": 3,
+     "blurred": 0,
+     "roundedBoxes": 10,
+     "boxRadius": 12,
+     "squareMedia": 16,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 251
+      }
+     ]
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 900,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 1575,
+    "margins": {
+     "left": 14,
+     "right": 45
+    },
+    "sections": [
+     {
+      "sel": "header.planner-header",
+      "tag": "header",
+      "top": 88,
+      "height": 145,
+      "words": 39,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Fleet Route Planner",
+       "size": 26,
+       "tag": "h1"
+      },
+      "left": 278,
+      "right": 443,
+      "textLeft": 278,
+      "textRight": 481,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.curri-workbench",
+      "tag": "section",
+      "top": 369,
+      "height": 874,
+      "words": 176,
+      "media": 8,
+      "middle": 0,
+      "heading": {
+       "text": "Interactive Map & Route Radar",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 297,
+      "right": 0,
+      "textLeft": 297,
+      "textRight": 45,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.curri-analysis-grid",
+      "tag": "section",
+      "top": 1264,
+      "height": 195,
+      "words": 56,
+      "media": 0,
+      "middle": 63,
+      "heading": {
+       "text": "Algorithm Execution Step-by-Step",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 297,
+      "right": 56,
+      "textLeft": 297,
+      "textRight": 56,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Fleet Route Planner",
+      "size": 26,
+      "top": 105,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 297,
+      "n": 4
+     },
+     {
+      "x": 956,
+      "n": 2
+     },
+     {
+      "x": 278,
+      "n": 1
+     },
+     {
+      "x": 651,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 8,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0.08,
+    "voidBox": {
+     "x": 0,
+     "y": 420,
+     "w": 240,
+     "h": 420
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#fcf0da",
+    "sidebar": {
+     "w": 250,
+     "tag": "aside",
+     "links": 7,
+     "share": 0.17
+    },
+    "topbar": {
+     "h": 60
+    },
+    "canvas": {
+     "left": 42,
+     "right": 28
+    },
+    "hero": {
+     "text": "Fleet Route Planner",
+     "words": 3,
+     "chars": 19,
+     "lines": 1,
+     "size": 26,
+     "vw": 1.8,
+     "font": "-apple-system",
+     "weight": 850,
+     "tracking": -0.02,
+     "leading": 1.15,
+     "top": 105,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 1,
+    "layout": {
+     "panels": 10,
+     "firstScreen": 7,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 2,
+    "panels": {
+     "count": 13,
+     "radii": [
+      [
+       12,
+       6
+      ],
+      [
+       16,
+       4
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       10,
+       1
+      ]
+     ],
+     "heavyBorders": 11,
+     "borderSamples": [
+      "#4e4740 on #ffffff (9.13:1)",
+      "#4e4740 on #ffffff (9.13:1)",
+      "#4e4740 on #ffffff (9.13:1)"
+     ],
+     "heavyShadows": 0,
+     "softShadows": 8,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 3,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 40,
+       "size": 36,
+       "radius": "8px"
+      },
+      {
+       "hue": 29,
+       "size": 26,
+       "radius": "6px"
+      },
+      {
+       "hue": 39,
+       "size": 40,
+       "radius": "10px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 22,
+     "tabularShare": 0.05,
+     "kpiMax": 12
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.79,
+     "tiny": 58,
+     "tinySamples": [
+      "LOGISTICS DISPATCH INTEL 10px",
+      "CVRP ENGINE 10px",
+      "DELIVERY MANIFEST 10px",
+      "ACTIVE FLEET CAPACITY 10px"
+     ],
+     "sizes": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24,
+      26
+     ]
+    },
+    "title": {
+     "text": "Fleet Route Planner",
+     "size": 26,
+     "top": 105
+    },
+    "colourShare": 0.013
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 2,
+   "filled": [
+    0.71,
+    0.77
+   ],
+   "motion": {
+    "elements": 25,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 25,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 1687,
+     "screens": 1.6,
+     "words": 429,
+     "img": 4,
+     "video": 0,
+     "canvas": 0,
+     "svg": 58,
+     "sections": 3,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 4,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "1677.png",
+      "1677.png",
+      "1678.png",
+      "1678.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "★"
+     ],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Fleet Route Planner",
+     "words": 3,
+     "chars": 19,
+     "lines": 1,
+     "size": 26,
+     "vw": 3.4,
+     "font": "-apple-system",
+     "weight": 850,
+     "tracking": -0.02,
+     "leading": 1.15,
+     "top": 97,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Fleet Route Planner",
+     "words": 3,
+     "lines": 1,
+     "size": 26,
+     "font": "-apple-system"
+    },
+    "headings": [
+     {
+      "text": "Fleet Route Planner",
+      "words": 3,
+      "chars": 19,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.4,
+      "font": "-apple-system",
+      "weight": 850,
+      "tracking": -0.023,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.3,
+      "top": 97,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "-apple-system",
+       "share": 0.98,
+       "mono": false
+      },
+      {
+       "family": "Helvetica Neue",
+       "share": 0.02,
+       "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0,
+       "mono": true
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24,
+      26
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "-apple-system",
+      "size": 11,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7
+     },
+     "measureChars": 12,
+     "max": {
+      "size": 26,
+      "vw": 3.4,
+      "font": "-apple-system",
+      "text": "Fleet Route Planner"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "monospace"
+     ],
+     "monoSamples": [
+      "O(n²)"
+     ],
+     "microLabels": 15,
+     "microLabelShare": 0.107,
+     "microSamples": [
+      "LOGISTICS DISPATCH INTELLIGENCE",
+      "CVRP ENGINE",
+      "DELIVERY MANIFEST",
+      "ACTIVE FLEET CAPACITY",
+      "CARGO DEMAND & LOAD",
+      "PLANNED FLEET DISTANCE"
+     ],
+     "upperShare": 0.22,
+     "centerShare": 0.06,
+     "smallText": 77
+    },
+    "eyebrows": [],
+    "numbered": [
+     {
+      "text": "03",
+      "size": 24,
+      "top": 332
+     },
+     {
+      "text": "03",
+      "size": 12,
+      "top": 693
+     },
+     {
+      "text": "01",
+      "size": 9.5,
+      "top": 1001
+     },
+     {
+      "text": "02",
+      "size": 9.5,
+      "top": 1046
+     },
+     {
+      "text": "03",
+      "size": 9.5,
+      "top": 1091
+     },
+     {
+      "text": "04",
+      "size": 9.5,
+      "top": 1136
+     },
+     {
+      "text": "05",
+      "size": 9.5,
+      "top": 1181
+     },
+     {
+      "text": "06",
+      "size": 9.5,
+      "top": 1226
+     },
+     {
+      "text": "07",
+      "size": 9.5,
+      "top": 1271
+     },
+     {
+      "text": "08",
+      "size": 9.5,
+      "top": 1316
+     },
+     {
+      "text": "09",
+      "size": 9.5,
+      "top": 1361
+     }
+    ],
+    "color": {
+     "bodyBg": "#fcf0da",
+     "bodyBgHsl": {
+      "h": 39,
+      "s": 0.85,
+      "l": 0.92
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fcf0da",
+       "top": 0,
+       "hsl": {
+        "h": 39,
+        "s": 0.85,
+        "l": 0.92
+       }
+      },
+      {
+       "color": "#ffffff",
+       "top": 448,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#605853",
+       "share": 0.47
+      },
+      {
+       "color": "#4c4541",
+       "share": 0.43
+      },
+      {
+       "color": "#aeac78",
+       "share": 0.04
+      },
+      {
+       "color": "#fcf0da",
+       "share": 0.04
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#4c4541"
+     },
+     "lowContrast": [
+      {
+       "text": "CVRP ENGINE",
+       "ratio": 2.1,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#aeac78",
+       "bg": "#fcf0da"
+      },
+      {
+       "text": "SOLVER STRATEGY",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "VEHICLE LOGISTICS",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "WAYPOINT MANIFEST",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "DECISION PLAYBACK",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "VERIFICATION",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 9,
+     "inHero": 7,
+     "radius": 8,
+     "height": 36,
+     "withShadow": 5,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "CSV Template",
+      "Import Manifest",
+      "Reset Demo",
+      "Compare Solvers",
+      "Optimize Routes"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 16,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px",
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px",
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px",
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px"
+     ],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 8,
+     "hairlineSamples": [
+      "aside.curri-sidebar 60px",
+      "header.curri-topbar 708px",
+      "div.config-item-row 302px",
+      "div.config-item-row 302px",
+      "div.config-item-row 302px"
+     ],
+     "outlinedBoxes": 11,
+     "dashed": 3,
+     "blurred": 0,
+     "roundedBoxes": 11,
+     "boxRadius": 12,
+     "squareMedia": 4,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": [
+      {
+       "count": 4,
+       "iconTopped": true,
+       "rounded": true,
+       "top": 287
+      }
+     ]
+    },
+    "heroMedia": [
+     {
+      "type": "img",
+      "ratio": 0.08
+     },
+     {
+      "type": "img",
+      "ratio": 0.08
+     }
+    ],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 1024,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 1687,
+    "margins": {
+     "left": 6,
+     "right": 37
+    },
+    "sections": [
+     {
+      "sel": "header.planner-header",
+      "tag": "header",
+      "top": 80,
+      "height": 189,
+      "words": 39,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Fleet Route Planner",
+       "size": 26,
+       "tag": "h1"
+      },
+      "left": 76,
+      "right": 81,
+      "textLeft": 76,
+      "textRight": 81,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.planner-metrics-strip",
+      "tag": "section",
+      "top": 287,
+      "height": 142,
+      "words": 52,
+      "media": 0,
+      "middle": 66,
+      "heading": {
+       "text": "14",
+       "size": 24,
+       "tag": "div"
+      },
+      "left": 93,
+      "right": 43,
+      "textLeft": 93,
+      "textRight": 43,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.curri-workbench",
+      "tag": "section",
+      "top": 448,
+      "height": 874,
+      "words": 176,
+      "media": 4,
+      "middle": 0,
+      "heading": {
+       "text": "Interactive Map & Route Radar",
+       "size": 16,
+       "tag": "h2"
+      },
+      "left": 95,
+      "right": 0,
+      "textLeft": 95,
+      "textRight": 39,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": false,
+      "pinned": false
+     },
+     {
+      "sel": "section.curri-analysis-grid",
+      "tag": "section",
+      "top": 1343,
+      "height": 248,
+      "words": 56,
+      "media": 0,
+      "middle": 99,
+      "heading": {
+       "text": "Algorithm Execution Step-by-Step",
+       "size": 15,
+       "tag": "h2"
+      },
+      "left": 95,
+      "right": 46,
+      "textLeft": 95,
+      "textRight": 46,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Fleet Route Planner",
+      "size": 26,
+      "top": 97,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 95,
+      "n": 4
+     },
+     {
+      "x": 491,
+      "n": 2
+     },
+     {
+      "x": 76,
+      "n": 1
+     },
+     {
+      "x": 449,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 8,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#fcf0da",
+    "sidebar": {
+     "w": 60,
+     "tag": "aside",
+     "links": 7,
+     "share": 0.08
+    },
+    "topbar": {
+     "h": 60
+    },
+    "canvas": {
+     "left": 28,
+     "right": 33
+    },
+    "hero": {
+     "text": "Fleet Route Planner",
+     "words": 3,
+     "chars": 19,
+     "lines": 1,
+     "size": 26,
+     "vw": 3.4,
+     "font": "-apple-system",
+     "weight": 850,
+     "tracking": -0.02,
+     "leading": 1.15,
+     "top": 97,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 2,
+    "layout": {
+     "panels": 9,
+     "firstScreen": 6,
+     "ragged": [],
+     "voids": [
+      {
+       "gap": 64,
+       "at": 1508,
+       "panel": "Algorithm Execution Step-by-Step"
+      }
+     ]
+    },
+    "tiles": 1,
+    "panels": {
+     "count": 12,
+     "radii": [
+      [
+       12,
+       6
+      ],
+      [
+       16,
+       4
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       10,
+       1
+      ]
+     ],
+     "heavyBorders": 11,
+     "borderSamples": [
+      "#4e4740 on #ffffff (9.13:1)",
+      "#4e4740 on #ffffff (9.13:1)",
+      "#4e4740 on #ffffff (9.13:1)"
+     ],
+     "heavyShadows": 0,
+     "softShadows": 8,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 2,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 40,
+       "size": 36,
+       "radius": "8px"
+      },
+      {
+       "hue": 39,
+       "size": 40,
+       "radius": "10px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 22,
+     "tabularShare": 0.05,
+     "kpiMax": 12
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.78,
+     "tiny": 58,
+     "tinySamples": [
+      "LOGISTICS DISPATCH INTEL 10px",
+      "CVRP ENGINE 10px",
+      "DELIVERY MANIFEST 10px",
+      "ACTIVE FLEET CAPACITY 10px"
+     ],
+     "sizes": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24,
+      26
+     ]
+    },
+    "title": {
+     "text": "Fleet Route Planner",
+     "size": 26,
+     "top": 97
+    },
+    "colourShare": 0.009
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.47,
+    0.54,
+    0.54
+   ],
+   "motion": {
+    "elements": 39,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 39,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 700,
+     "h": 1515
+    },
+    "page": {
+     "height": 2001,
+     "screens": 1.3,
+     "words": 429,
+     "img": 3,
+     "video": 0,
+     "canvas": 0,
+     "svg": 58,
+     "sections": 3,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 3,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "13423.png",
+      "13422.png",
+      "13424.png"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [
+      "★"
+     ],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Fleet Route Planner",
+     "words": 3,
+     "chars": 19,
+     "lines": 1,
+     "size": 26,
+     "vw": 3.7,
+     "font": "-apple-system",
+     "weight": 850,
+     "tracking": -0.02,
+     "leading": 1.15,
+     "top": 108,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": {
+     "text": "Fleet Route Planner",
+     "words": 3,
+     "lines": 1,
+     "size": 26,
+     "font": "-apple-system"
+    },
+    "headings": [
+     {
+      "text": "Fleet Route Planner",
+      "words": 3,
+      "chars": 19,
+      "lines": 1,
+      "size": 26,
+      "vw": 3.7,
+      "font": "-apple-system",
+      "weight": 850,
+      "tracking": -0.023,
+      "leading": 1.15,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.33,
+      "top": 108,
+      "tag": "h1",
+      "kind": "heading"
+     }
+    ],
+    "headingSummary": {
+     "count": 1,
+     "maxLines": 1,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "-apple-system",
+       "share": 0.98,
+       "mono": false
+      },
+      {
+       "family": "Helvetica Neue",
+       "share": 0.02,
+       "mono": false
+      },
+      {
+       "family": "monospace",
+       "share": 0,
+       "mono": true
+      }
+     ],
+     "familyCount": 3,
+     "sizes": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24,
+      26
+     ],
+     "sizeCount": 10,
+     "notLoaded": [],
+     "body": {
+      "font": "-apple-system",
+      "size": 11,
+      "leading": 1.45,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 7
+     },
+     "measureChars": 12,
+     "max": {
+      "size": 26,
+      "vw": 3.7,
+      "font": "-apple-system",
+      "text": "Fleet Route Planner"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [
+      "monospace"
+     ],
+     "monoSamples": [
+      "O(n²)"
+     ],
+     "microLabels": 15,
+     "microLabelShare": 0.107,
+     "microSamples": [
+      "LOGISTICS DISPATCH INTELLIGENCE",
+      "CVRP ENGINE",
+      "DELIVERY MANIFEST",
+      "ACTIVE FLEET CAPACITY",
+      "CARGO DEMAND & LOAD",
+      "PLANNED FLEET DISTANCE"
+     ],
+     "upperShare": 0.22,
+     "centerShare": 0.06,
+     "smallText": 77
+    },
+    "eyebrows": [],
+    "numbered": [
+     {
+      "text": "03",
+      "size": 24,
+      "top": 453
+     },
+     {
+      "text": "03",
+      "size": 12,
+      "top": 839
+     },
+     {
+      "text": "01",
+      "size": 9.5,
+      "top": 1149
+     },
+     {
+      "text": "02",
+      "size": 9.5,
+      "top": 1194
+     },
+     {
+      "text": "03",
+      "size": 9.5,
+      "top": 1239
+     },
+     {
+      "text": "04",
+      "size": 9.5,
+      "top": 1284
+     },
+     {
+      "text": "05",
+      "size": 9.5,
+      "top": 1329
+     },
+     {
+      "text": "06",
+      "size": 9.5,
+      "top": 1374
+     },
+     {
+      "text": "07",
+      "size": 9.5,
+      "top": 1419
+     },
+     {
+      "text": "08",
+      "size": 9.5,
+      "top": 1464
+     },
+     {
+      "text": "09",
+      "size": 9.5,
+      "top": 1509
+     }
+    ],
+    "color": {
+     "bodyBg": "#fcf0da",
+     "bodyBgHsl": {
+      "h": 39,
+      "s": 0.85,
+      "l": 0.92
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#fcf0da",
+       "top": 0,
+       "hsl": {
+        "h": 39,
+        "s": 0.85,
+        "l": 0.92
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#605853",
+       "share": 0.47
+      },
+      {
+       "color": "#4c4541",
+       "share": 0.43
+      },
+      {
+       "color": "#aeac78",
+       "share": 0.04
+      },
+      {
+       "color": "#fcf0da",
+       "share": 0.04
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#4c4541"
+     },
+     "lowContrast": [
+      {
+       "text": "CVRP ENGINE",
+       "ratio": 2.1,
+       "need": 4.5,
+       "size": 10,
+       "fg": "#aeac78",
+       "bg": "#fcf0da"
+      },
+      {
+       "text": "SOLVER STRATEGY",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "VEHICLE LOGISTICS",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "WAYPOINT MANIFEST",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "DECISION PLAYBACK",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      },
+      {
+       "text": "VERIFICATION",
+       "ratio": 2.3,
+       "need": 4.5,
+       "size": 9,
+       "fg": "#aeac78",
+       "bg": "#ffffff"
+      }
+     ]
+    },
+    "buttons": {
+     "count": 10,
+     "inHero": 9,
+     "radius": 8,
+     "height": 36,
+     "withShadow": 5,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "CSV Template",
+      "Import Manifest",
+      "Reset Demo",
+      "Compare Solvers",
+      "Optimize Routes"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 16,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px",
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px",
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px",
+      "button.planner-btn-secondary → rgba(76, 69, 65, 0.08) 0px 1px 3px 0px"
+     ],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 8,
+     "hairlineSamples": [
+      "aside.curri-sidebar 60px",
+      "header.curri-topbar 330px",
+      "div.config-item-row 302px",
+      "div.config-item-row 302px",
+      "div.config-item-row 302px"
+     ],
+     "outlinedBoxes": 5,
+     "dashed": 3,
+     "blurred": 0,
+     "roundedBoxes": 5,
+     "boxRadius": 16,
+     "squareMedia": 3,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 0,
+     "fixed": true,
+     "height": 844,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": []
+   },
+   "layout": {
+    "viewport": {
+     "w": 700,
+     "h": 1515
+    },
+    "pageH": 2001,
+    "margins": {
+     "left": 6,
+     "right": 83
+    },
+    "sections": [],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Fleet Route Planner",
+      "size": 26,
+      "top": 108,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 95,
+      "n": 4
+     },
+     {
+      "x": 304,
+      "n": 2
+     },
+     {
+      "x": 76,
+      "n": 1
+     },
+     {
+      "x": 449,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 8,
+    "bodySize": 11,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 700,
+     "h": 1515
+    },
+    "dark": false,
+    "ground": "#fcf0da",
+    "sidebar": null,
+    "topbar": null,
+    "canvas": {
+     "left": 6,
+     "right": 74
+    },
+    "hero": {
+     "text": "Fleet Route Planner",
+     "words": 3,
+     "chars": 19,
+     "lines": 1,
+     "size": 26,
+     "vw": 3.7,
+     "font": "-apple-system",
+     "weight": 850,
+     "tracking": -0.02,
+     "leading": 1.15,
+     "top": 108,
+     "tag": "h1",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 1,
+    "layout": {
+     "panels": 4,
+     "firstScreen": 2,
+     "ragged": [],
+     "voids": [
+      {
+       "gap": 88,
+       "at": 1798,
+       "panel": "Algorithm Execution Step-by-Step"
+      }
+     ]
+    },
+    "tiles": 1,
+    "panels": {
+     "count": 5,
+     "radii": [
+      [
+       16,
+       3
+      ],
+      [
+       12,
+       1
+      ],
+      [
+       10,
+       1
+      ]
+     ],
+     "heavyBorders": 5,
+     "borderSamples": [
+      "#4e4740 on #ffffff (9.13:1)",
+      "#4c4440 on #ffffff (9.51:1)",
+      "#4e4740 on #ffffff (9.13:1)"
+     ],
+     "heavyShadows": 0,
+     "softShadows": 3,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 2,
+     "hues": 1,
+     "samples": [
+      {
+       "hue": 40,
+       "size": 36,
+       "radius": "8px"
+      },
+      {
+       "hue": 39,
+       "size": 40,
+       "radius": "10px"
+      }
+     ]
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 22,
+     "tabularShare": 0.05,
+     "kpiMax": 12
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.78,
+     "tiny": 58,
+     "tinySamples": [
+      "LOGISTICS DISPATCH INTEL 10px",
+      "CVRP ENGINE 10px",
+      "DELIVERY MANIFEST 10px",
+      "ACTIVE FLEET CAPACITY 10px"
+     ],
+     "sizes": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      24,
+      26
+     ]
+    },
+    "title": {
+     "text": "Fleet Route Planner",
+     "size": 26,
+     "top": 108
+    },
+    "colourShare": 0.009
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "FAIL",
+   "id": "micro-label",
+   "width": 1440,
+   "message": "15 tiny uppercase letter-spaced labels (e.g. \"LOGISTICS DISPATCH INTELLIGENCE\", \"CVRP ENGINE\", \"DELIVERY MANIFEST\", \"ACTIVE FLEET CAPACITY\").",
+   "fix": "Use sentence-case text at a readable size, or delete the label.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "emoji",
+   "width": 1440,
+   "message": "Emoji in the page: ★",
+   "fix": "Remove. Use words or real imagery.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "button-fx",
+   "width": 1440,
+   "message": "Buttons with shadow/glow.",
+   "fix": "Flat fill, one colour.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (page background #fcf0da, section #fcf0da, text #fcf0da).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "contrast",
+   "width": 1440,
+   "message": "Unreadable text: \"CVRP ENGINE\" 2.1:1 (#aeac78 on #fcf0da); \"SOLVER STRATEGY\" 2.3:1 (#aeac78 on #ffffff); \"VEHICLE LOGISTICS\" 2.3:1 (#aeac78 on #ffffff); \"WAYPOINT MANIFEST\" 2.3:1 (#aeac78 on #ffffff)",
+   "fix": "Raise contrast to at least 4.5:1 for text, 3:1 for large display.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "heavy-borders",
+   "width": 1440,
+   "message": "11 panel borders are dark against their ground: #4e4740 on #ffffff (9.13:1) | #4e4740 on #ffffff (9.13:1) | #4e4740 on #ffffff (9.13:1)",
+   "fix": "A panel border is a whisper: about 1.1–1.3:1 against its ground on a light screen (#e5e7eb–#ededed on white), and about 1.2–1.5:1 on a dark one (#1a1a1a on #000, #2e2e2e on #111). Darker lines turn the screen into a grid of boxes; keep the stronger line for controls.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "WARN",
+   "id": "icon-chips",
+   "width": 1440,
+   "message": "3 icons sit in tinted squares or circles.",
+   "fix": "This is the commonest tell of a generated dashboard. Drop the tinted square: a KPI is a label and a number; an icon, if it helps, is plain and in the text colour."
+  },
+  {
+   "level": "WARN",
+   "id": "tabular",
+   "width": 1440,
+   "message": "Only 5% of the figures use tabular numerals.",
+   "fix": "Set font-variant-numeric: tabular-nums on tables, KPIs and anything that updates, so digits keep their width.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "tiny-text",
+   "width": 1440,
+   "message": "58 text blocks under 11px: LOGISTICS DISPATCH INTEL 10px, CVRP ENGINE 10px, DELIVERY MANIFEST 10px, ACTIVE FLEET CAPACITY 10px.",
+   "fix": "Nothing below 11px; secondary text 12px, data 13–14px.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "/home/rahul/Projects/Graphene/.taste-skill/planner-inspect-v2/desktop-fold.jpg",
+   "pages": [
+    "/home/rahul/Projects/Graphene/.taste-skill/planner-inspect-v2/desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "/home/rahul/Projects/Graphene/.taste-skill/planner-inspect-v2/tablet-fold.jpg",
+   "pages": [
+    "/home/rahul/Projects/Graphene/.taste-skill/planner-inspect-v2/tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "/home/rahul/Projects/Graphene/.taste-skill/planner-inspect-v2/mobile-fold.jpg",
+   "pages": [
+    "/home/rahul/Projects/Graphene/.taste-skill/planner-inspect-v2/mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}
