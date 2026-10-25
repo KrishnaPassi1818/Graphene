@@ -1,0 +1,66 @@
+---
+type: map
+---
+
+# Repository Map
+
+- .dockerignore
+- .env.example
+- AGENTS.md
+- CONTRIBUTING.md
+- README.md
+- apps/ (36 files, 239784 bytes)
+  - api/ (16 files, 63066 bytes)
+    - Dockerfile
+    - package.json
+    - src/ (13 files, 56679 bytes)
+      - app.js
+      - openapi.js
+      - server.js
+      - storage.js
+    - test/ (1 files, 5168 bytes)
+      - api.test.js
+  - web/ (20 files, 176718 bytes)
+    - Dockerfile
+    - index.html
+    - nginx.conf
+    - package.json
+    - public/ (1 files, 483 bytes)
+      - favicon.svg
+    - src/ (14 files, 173027 bytes)
+      - App.jsx
+      - main.jsx
+      - styles.css
+    - vite.config.js
+- bun.lock
+- daaPlan.md
+- docker-compose.yml
+- docs/ (6 files, 17518 bytes)
+  - ALGORITHMS.md
+  - ARCHITECTURE.md
+  - CHANGELOG.md
+  - DAA-REPORT.md
+  - DEPLOYMENT.md
+  - PHASES.md
+- migrations/ (1 files, 3722 bytes)
+  - 001_init.sql
+- package-lock.json
+- package.json
+- packages/ (37 files, 78801 bytes)
+  - algorithms/ (35 files, 76492 bytes)
+    - package.json
+    - src/ (33 files, 68580 bytes)
+      - index.js — ENTRY POINT
+      - registry.js
+    - test/ (1 files, 7636 bytes)
+      - algorithms.test.js
+  - contracts/ (2 files, 2309 bytes)
+    - package.json
+    - src/ (1 files, 2124 bytes)
+      - index.js — ENTRY POINT
+- plan.md
+- scripts/ (1 files, 1019 bytes)
+  - check-syntax.mjs
+- uploads/ (1 files, 28540 bytes)
+  - daaPlan.md
+- vitest.config.js

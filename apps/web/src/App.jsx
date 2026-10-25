@@ -1,17 +1,17 @@
 import { lazy, Suspense, useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { 
-  Activity, 
-  BarChart3, 
+import {
+  Activity,
+  BarChart3,
   ChevronLeft,
   ChevronRight,
-  Clock3, 
-  Command, 
-  FileClock, 
+  Clock3,
+  Command,
+  FileClock,
   Navigation2,
   Route as RouteIcon,
-  Settings2, 
+  Settings2,
   PanelLeftClose,
   PanelLeftOpen,
 } from "lucide-react";
@@ -26,20 +26,20 @@ const AccessView = lazy(() => import("./views/AccessView.jsx"));
 const ShortestPathLabView = lazy(() => import("./views/ShortestPathLabView.jsx"));
 
 const navigation = [
-  { 
-    label: "Routing Operations", 
+  {
+    label: "Routing Operations",
     items: [
       { path: "/", label: "Route Planner", icon: RouteIcon },
       { path: "/shortest-paths", label: "Shortest Path & MST Suite", icon: Navigation2 },
       { path: "/runs", label: "Fleet History", icon: FileClock }
-    ] 
+    ]
   },
-  { 
-    label: "Intelligence Lab", 
+  {
+    label: "Intelligence Lab",
     items: [
       { path: "/algorithms", label: "Algorithm Lab", icon: Activity },
       { path: "/benchmarks", label: "Benchmarks", icon: BarChart3 }
-    ] 
+    ]
   },
 ];
 
@@ -65,7 +65,7 @@ export default function App() {
     if (plannerQuery.data) setPlanner(plannerQuery.data);
     else if (plannerQuery.isError) setFallbackMode();
   }, [plannerQuery.data, plannerQuery.isError, setPlanner, setFallbackMode]);
-  
+
   useEffect(() => { setPage(page); }, [page, setPage]);
 
   // Touch and wheel swipe gesture listeners to collapse/expand sidebar
@@ -114,10 +114,10 @@ export default function App() {
     };
   }, []);
 
-  const dateLabel = new Intl.DateTimeFormat("en-US", { 
-    weekday: "short", 
-    month: "short", 
-    day: "numeric" 
+  const dateLabel = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric"
   }).format(new Date());
 
   const title = ({
@@ -138,7 +138,7 @@ export default function App() {
       <aside className={`curri-sidebar ${collapsed ? "is-collapsed" : ""}`} ref={sidebarRef}>
         {/* Brand Lockup */}
         <div className="curri-brand">
-          <div className="curri-logo-mark" onClick={() => setCollapsed(!collapsed)} title="Toggle sidebar">
+          <div className="curri-logo-mark" aria-hidden="true">
             <Navigation2 className="curri-logo-icon" size={17} />
           </div>
           {!collapsed && (
@@ -147,13 +147,14 @@ export default function App() {
               <span className="curri-subtitle">LOGISTICS</span>
             </div>
           )}
-          <button 
-            type="button" 
-            className="curri-collapse-toggle" 
+          <button
+            type="button"
+            className="curri-collapse-toggle"
             onClick={() => setCollapsed(!collapsed)}
             title={collapsed ? "Expand sidebar (or swipe right)" : "Collapse sidebar (or swipe left)"}
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+            {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
           </button>
         </div>
 
@@ -208,14 +209,7 @@ export default function App() {
         {/* Top Header */}
         <header className="curri-topbar">
           <div className="topbar-left-wrap">
-            <button 
-              type="button" 
-              className="curri-mobile-toggle"
-              onClick={() => setCollapsed(!collapsed)}
-              title="Toggle sidebar"
-            >
-              {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
-            </button>
+
             <div className="curri-breadcrumbs">
               <span className="crumb-brand">DISPATCH</span>
               <span className="crumb-slash">/</span>

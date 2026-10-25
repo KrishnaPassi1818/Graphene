@@ -8,6 +8,15 @@ import "./styles.css";
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 15_000, retry: 1, refetchOnWindowFocus: false } } });
 
+if (typeof window !== "undefined") {
+  window.addEventListener("dragstart", (e) => {
+    const tag = e.target?.tagName;
+    if (tag !== "INPUT" && tag !== "TEXTAREA" && !e.target?.isContentEditable) {
+      e.preventDefault();
+    }
+  });
+}
+
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
