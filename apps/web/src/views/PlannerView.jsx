@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
   Activity, 
@@ -11,7 +11,6 @@ import {
   Clock3, 
   Cpu,
   FileDown, 
-  FileUp, 
   Layers2, 
   LoaderCircle, 
   MapPinned, 
@@ -19,7 +18,6 @@ import {
   Navigation2,
   Package, 
   Plus, 
-  RotateCcw,
   Route as RouteIcon, 
   Search,
   ShieldAlert,
@@ -33,7 +31,7 @@ import {
 import toast from "react-hot-toast";
 import { usePlannerStore } from "../store/usePlannerStore.js";
 import { api } from "../api/client.js";
-import { solveOptimization, getDemoInstance, ALGORITHM_REGISTRY, ROUTE_ALGORITHM_IDS } from "@courier/algorithms";
+import { solveOptimization, ALGORITHM_REGISTRY, ROUTE_ALGORITHM_IDS } from "@courier/algorithms";
 import RouteMap, { ROUTE_COLORS } from "../components/RouteMap.jsx";
 import TracePlayer from "../components/TracePlayer.jsx";
 
@@ -66,7 +64,6 @@ export default function PlannerView() {
   const [showAdd, setShowAdd] = useState(false);
   const [initialModalCoords, setInitialModalCoords] = useState(null);
   const [query, setQuery] = useState("");
-  const fileRef = useRef(null);
 
   const stops = planner.stops ?? [];
   const depot = planner.depot;
@@ -179,47 +176,6 @@ export default function PlannerView() {
     toast.success("Stop removed from manifest.");
   }
 
-  function handleResetDemo() {
-    try {
-      const demo = getDemoInstance();
-      setStops(demo.stops);
-      setFleet(demo.fleet);
-      const solved = solveOptimization({
-        depot: demo.depot,
-        stops: demo.stops,
-        vehicles: demo.fleet.vehicles,
-        capacity: demo.fleet.capacity,
-        algorithm: "nearest-neighbor",
-        options: { seed: 42, trace: true, averageSpeedKmh: 28, startTimeMinutes: 480 }
-      });
-      setResult(solved);
-      setComparison(null);
-      setSelectedRoute(null);
-      toast.success("Reset manifest to standard demo instance.");
-    } catch {
-      toast.error("Could not reset demo instance.");
-    }
-  }
-
-  async function handleImport(event) {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    const csv = await file.text();
-    try {
-      const imported = await api.importStops(csv);
-      setStops([...stops, ...imported.stops]);
-      toast.success(`${imported.imported} stops imported into manifest.`);
-    } catch (error) {
-      if (error.response) return toast.error(error.response.data?.error || "CSV import failed.");
-      const parsed = parseLocalCsv(csv, depot);
-      if (!parsed.length) return toast.error("Could not parse stops. Required columns: label, lat, lng, demand.");
-      setStops([...stops, ...parsed]);
-      setFallbackMode();
-      toast.success(`${parsed.length} stops imported.`);
-    }
-    event.target.value = "";
-  }
-
   function downloadTemplate() {
     const csv = "label,lat,lng,demand,serviceMinutes\nLudhiana Timber Yard,30.9020,75.8610,16,6\nMiller Ganj Hardware,30.8980,75.8520,24,8\n";
     const link = document.createElement("a");
@@ -282,29 +238,6 @@ export default function PlannerView() {
           >
             <FileDown size={14} />
             <span>CSV Template</span>
-          </button>
-          
-          <div className="import-btn-wrap">
-            <button 
-              type="button" 
-              className="planner-btn-secondary" 
-              onClick={() => fileRef.current?.click()}
-              title="Import delivery stops manifest from CSV file"
-            >
-              <FileUp size={14} />
-              <span>Import Manifest</span>
-            </button>
-            <input ref={fileRef} type="file" accept=".csv,text/csv" hidden onChange={handleImport} />
-          </div>
-
-          <button 
-            type="button" 
-            className="planner-btn-secondary" 
-            onClick={handleResetDemo}
-            title="Reset manifest and fleet to standard demo instance"
-          >
-            <RotateCcw size={14} />
-            <span>Reset Demo</span>
           </button>
 
           <button 

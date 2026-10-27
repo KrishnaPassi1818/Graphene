@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { Pause, Play, RotateCcw, SkipBack, SkipForward, Sparkles, Activity } from "lucide-react";
+import { Pause, Play, RotateCcw, ChevronLeft, ChevronRight, Activity, ArrowRight } from "lucide-react";
 
 export default function TracePlayer({ trace = [], algorithm }) {
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const [speed, setSpeed] = useState(650);
+  const [speed, setSpeed] = useState(600);
   const steps = useMemo(() => trace.slice(0, 5000), [trace]);
   const step = steps[index];
 
@@ -29,14 +29,9 @@ export default function TracePlayer({ trace = [], algorithm }) {
 
   if (!steps.length) {
     return (
-      <div className="trace-empty">
-        <div className="trace-empty-icon">
-          <Sparkles size={18} />
-        </div>
-        <div className="trace-empty-content">
-          <b>Algorithm Trace Ready</b>
-          <span>Run route optimization to inspect the solver's decisions and branch moves step by step.</span>
-        </div>
+      <div className="trace-minimal-empty">
+        <Activity size={16} className="trace-empty-glyph" />
+        <p>No decision trace yet. Run route optimization to playback solver decisions.</p>
       </div>
     );
   }
@@ -45,124 +40,111 @@ export default function TracePlayer({ trace = [], algorithm }) {
   const stepTypeName = step?.type?.replaceAll("-", " ") || "decision";
 
   return (
-    <div className="trace-player">
-      {/* Trace Subheader */}
-      <div className="trace-player-head">
-        <div className="trace-title-group">
-          <span className="trace-pulse-dot" />
-          <div className="trace-title-text">
-            <b>{algorithm || "Solver Execution"}</b>
-            <span>{steps.length} sequential decisions recorded</span>
-          </div>
-        </div>
-        <div className="trace-counter-badge">
-          <span>Step</span>
-          <strong>{String(index + 1).padStart(2, "0")}</strong>
-          <span className="counter-sep">/</span>
-          <span>{String(steps.length).padStart(2, "0")}</span>
-        </div>
-      </div>
-
-      {/* Step Narrative Card */}
-      <div className="trace-message-card">
-        <div className="trace-message-header">
-          <span className={`trace-type-badge type-${step?.type || "default"}`}>
-            {stepTypeName.toUpperCase()}
+    <div className="trace-minimal-container">
+      {/* Step Info Row */}
+      <div className="trace-minimal-step-row">
+        <div className="trace-minimal-type-group">
+          <span className={`trace-minimal-pill type-${step?.type || "default"}`}>
+            {stepTypeName}
           </span>
           {step?.cost != null && (
-            <span className="trace-cost-chip">
-              Cost: +{Number(step.cost).toFixed(2)} km
+            <span className="trace-minimal-cost">
+              +{Number(step.cost).toFixed(2)} km
             </span>
           )}
         </div>
-        <p className="trace-note-text">
+        <div className="trace-minimal-counter">
+          <span>{index + 1}</span>
+          <span className="trace-sep">/</span>
+          <span>{steps.length}</span>
+        </div>
+      </div>
+
+      {/* Decision Note */}
+      <div className="trace-minimal-card">
+        <p className="trace-minimal-note">
           {step?.note || "The optimization solver evaluated candidate edges and updated vehicle assignments."}
         </p>
       </div>
 
-      {/* Scrubber Timeline */}
-      <div className="trace-scrubber-wrapper">
-        <div className="trace-track-container">
-          <input
-            className="trace-scrubber"
-            type="range"
-            min="0"
-            max={Math.max(1, steps.length - 1)}
-            value={index}
-            onChange={(event) => {
-              setPlaying(false);
-              setIndex(Number(event.target.value));
-            }}
-            aria-label="Trace step"
-            style={{ "--trace-fill-pct": `${progressPct}%` }}
-          />
-        </div>
-        <div className="trace-progress-label">
-          <span>Progress {progressPct}%</span>
-          <span>{index + 1} of {steps.length} moves</span>
-        </div>
+      {/* Single Sleek Scrubber Bar */}
+      <div className="trace-minimal-scrubber-box">
+        <input
+          className="trace-minimal-slider"
+          type="range"
+          min="0"
+          max={Math.max(1, steps.length - 1)}
+          value={index}
+          onChange={(e) => {
+            setPlaying(false);
+            setIndex(Number(e.target.value));
+          }}
+          aria-label="Decision step scrubber"
+          style={{ "--trace-fill-pct": `${progressPct}%` }}
+        />
       </div>
 
-      {/* Control Buttons Strip */}
-      <div className="trace-controls-bar">
-        <div className="trace-nav-buttons">
+      {/* Clean Minimal Controls */}
+      <div className="trace-minimal-controls">
+        <div className="trace-minimal-btns">
           <button
             type="button"
-            className="trace-btn-icon"
-            title="Reset to first step"
+            className="trace-minimal-btn"
+            title="Reset to beginning"
             onClick={() => {
               setPlaying(false);
               setIndex(0);
             }}
           >
-            <SkipBack size={15} />
+            <RotateCcw size={13} />
           </button>
-          
+
           <button
             type="button"
-            className={`trace-btn-play ${playing ? "is-playing" : ""}`}
-            title={playing ? "Pause playback" : "Play step-by-step trace"}
-            onClick={() => setPlaying((value) => !value)}
+            className="trace-minimal-btn"
+            title="Previous step"
+            onClick={() => setIndex((v) => Math.max(0, v - 1))}
+            disabled={index <= 0}
           >
-            {playing ? <Pause size={15} fill="currentColor" /> : <Play size={15} fill="currentColor" />}
+            <ChevronLeft size={14} />
+          </button>
+
+          <button
+            type="button"
+            className={`trace-minimal-play-btn ${playing ? "is-active" : ""}`}
+            title={playing ? "Pause" : "Play step-by-step"}
+            onClick={() => setPlaying((v) => !v)}
+          >
+            {playing ? <Pause size={13} fill="currentColor" /> : <Play size={13} fill="currentColor" />}
             <span>{playing ? "Pause" : "Play"}</span>
           </button>
 
           <button
             type="button"
-            className="trace-btn-icon"
+            className="trace-minimal-btn"
             title="Next step"
-            onClick={() => setIndex((value) => Math.min(steps.length - 1, value + 1))}
+            onClick={() => setIndex((v) => Math.min(steps.length - 1, v + 1))}
             disabled={index >= steps.length - 1}
           >
-            <SkipForward size={15} />
+            <ChevronRight size={14} />
           </button>
         </div>
 
-        {/* Speed Selector Pills */}
-        <div className="trace-speed-pills">
-          <span className="speed-label">SPEED</span>
-          <button
-            type="button"
-            className={`speed-pill ${speed === 1100 ? "speed-pill-active" : ""}`}
-            onClick={() => setSpeed(1100)}
-          >
-            0.5×
-          </button>
-          <button
-            type="button"
-            className={`speed-pill ${speed === 650 ? "speed-pill-active" : ""}`}
-            onClick={() => setSpeed(650)}
-          >
-            1×
-          </button>
-          <button
-            type="button"
-            className={`speed-pill ${speed === 320 ? "speed-pill-active" : ""}`}
-            onClick={() => setSpeed(320)}
-          >
-            2×
-          </button>
+        {/* Minimal Speed Selector */}
+        <div className="trace-minimal-speed">
+          {[
+            { label: "1×", val: 600 },
+            { label: "2×", val: 300 },
+          ].map(({ label, val }) => (
+            <button
+              key={label}
+              type="button"
+              className={`trace-speed-btn ${speed === val ? "active" : ""}`}
+              onClick={() => setSpeed(val)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </div>
     </div>

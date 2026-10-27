@@ -51,9 +51,36 @@ export function evaluateShortestPathScenario({
       weight: Number.isFinite(e.weight) ? e.weight : distMatrix[e.from][e.to],
     }));
   } else {
-    // Generate mesh: Connect every node to k nearest neighbors to make realistic road network
-    const k = Math.min(n - 1, 4);
+    // Generate connected road network:
+    // First, construct Minimum Spanning Tree backbone across all nodes to guarantee 100% connectivity.
+    // Second, augment with k-nearest neighbors to provide realistic cyclic alternative arterial roads.
     const added = new Set();
+    const addEdge = (u, v, w) => {
+      const key = directed ? `${u}->${v}` : `${Math.min(u, v)}<->${Math.max(u, v)}`;
+      if (!added.has(key)) {
+        added.add(key);
+        edgeList.push({ from: u, to: v, weight: Number(w.toFixed(2)) });
+        if (!directed) {
+          edgeList.push({ from: v, to: u, weight: Number(w.toFixed(2)) });
+        }
+      }
+    };
+
+    // Backbone MST on complete distance matrix
+    const completeGraph = new Graph(n, { directed: false });
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        completeGraph.addEdge(i, j, distMatrix[i][j]);
+        completeGraph.addEdge(j, i, distMatrix[i][j]);
+      }
+    }
+    const backboneMst = prims(completeGraph, 0);
+    for (const e of backboneMst.mstEdges) {
+      addEdge(e.from, e.to, e.weight);
+    }
+
+    // Connect each node to k nearest neighbors
+    const k = Math.min(n - 1, 4);
     for (let i = 0; i < n; i++) {
       const neighbors = [];
       for (let j = 0; j < n; j++) {
@@ -61,15 +88,7 @@ export function evaluateShortestPathScenario({
       }
       neighbors.sort((a, b) => a.dist - b.dist);
       for (let m = 0; m < k; m++) {
-        const j = neighbors[m].j;
-        const key = directed ? `${i}->${j}` : `${Math.min(i, j)}<->${Math.max(i, j)}`;
-        if (!added.has(key)) {
-          added.add(key);
-          edgeList.push({ from: i, to: j, weight: Number(distMatrix[i][j].toFixed(2)) });
-          if (!directed) {
-            edgeList.push({ from: j, to: i, weight: Number(distMatrix[i][j].toFixed(2)) });
-          }
-        }
+        addEdge(i, neighbors[m].j, neighbors[m].dist);
       }
     }
   }
